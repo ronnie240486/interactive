@@ -1,0 +1,2408 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive IPTV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@700;800;900&family=Audiowide&family=Oxanium:wght@700;800&family=Quantico:wght@700&family=Syncopate:wght@700&family=Aldrich&family=Share+Tech+Mono&family=VT323&family=Major+Mono+Display&family=Nova+Square&family=Electrolize&family=Josefin+Sans:wght@700&family=Michroma&family=Gruppo&family=Rationale&family=Jura:wght@700&family=Rajdhani:wght@700&family=Barlow+Condensed:wght@700;900&family=Bebas+Neue&family=Black+Ops+One&family=Anton&family=Oswald:wght@700&family=Russo+One&family=Teko:wght@600;700&family=Squada+One&family=Fugaz+One&family=Racing+Sans+One&family=Saira+Condensed:wght@700;800&family=Passion+One:wght@900&family=Righteous&family=Secular+One&family=Chakra+Petch:wght@700&family=Kanit:wght@700;800&family=Prompt:wght@700;800&family=Cinzel:wght@700&family=Abril+Fatface&family=Lobster&family=Pacifico&family=Ultra&family=Lilita+One&family=Fredoka:wght@700&family=Nunito:wght@900&family=Montserrat:wght@700;900&family=Poppins:wght@700;800&family=Inter:wght@700;900&family=Roboto:wght@700;900&family=Encode+Sans+Condensed:wght@700&family=Turret+Road:wght@700&family=Press+Start+2P&family=Cookie&family=Great+Vibes&family=Sacramento&family=Satisfy&family=Dancing+Script:wght@700&family=Kaushan+Script&family=Yellowtail&family=Permanent+Marker&family=Caveat:wght@700&family=Indie+Flower&family=Courgette&family=Leckerli+One&family=Architects+Daughter&family=Patrick+Hand&family=Amatic+SC:wght@700&family=Shadows+Into+Light&family=Handlee&family=Lobster+Two:wght@700&family=Italianno&family=Allura&family=Pinyon+Script&family=Alex+Brush&family=Berkshire+Swash&family=Yeseva+One&family=Playfair+Display:wght@700;900&family=Lemon&family=Boogaloo&family=Bangers&family=Titan+One&family=Black+Han+Sans&family=Bungee+Shade&family=Faster+One&family=Bungee&family=Kalam:wght@700&family=Gochi+Hand&family=Rock+Salt&family=Delius&family=Handjet:wght@700&family=Rubik+Dirt&family=Rubik+Wet+Paint&family=Rubik+Moonrocks&family=Chewy&family=Fredericka+the+Great&family=Sansita+Swashed:wght@700;900&family=Baloo+2:wght@700;800&family=Ribeye+Marrow&family=Cherry+Bomb+One&family=Rye&family=Kranky&family=Freckle+Face&family=Skranji:wght@700&family=Pirata+One&family=Uncial+Antiqua&family=Caesar+Dressing&family=Schoolbell&family=Coming+Soon&family=Annie+Use+Your+Telescope&family=Reenie+Beanie&family=Covered+By+Your+Grace&family=Fuzzy+Bubbles:wght@700&family=Zeyada&family=Walter+Turncoat&family=Mrs+Saint+Delafield&family=Marck+Script&family=Italianno&family=Waterfall&family=Pinyon+Script&family=Poiret+One&family=Josefin+Slab:wght@700&family=Philosopher:wght@700&family=Italiana&family=Fraunces:wght@700;900&family=Syne:wght@700;800&family=Space+Grotesk:wght@700&family=DM+Serif+Display&family=Inknut+Antiqua:wght@700&family=Young+Serif&family=Libre+Caslon+Display&family=Spectral:wght@700&family=Sora:wght@700;800&family=Manrope:wght@700;800&family=Plus+Jakarta+Sans:wght@700;800&family=Epilogue:wght@700;900&family=Raleway:wght@700;900&family=Questrial&family=Suez+One&family=Trochut:wght@700&family=Nova+Cut&family=Nova+Round&family=Nova+Oval&family=Charm:wght@700&family=Srisakdi:wght@700&family=Piazzolla:wght@700&family=Cormorant:wght@700&family=Are+You+Serious&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="./assets/index-AoNhu5h-.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BVwKpqzu.css">
+
+    <style>
+      /* ── MICROFONE ── */
+      .voice-mic-btn {
+        background: linear-gradient(135deg,#FFD700,#FF8C00);
+        color:#000; border:none; border-radius:50%;
+        width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+        font-size:20px; cursor:pointer;
+        box-shadow:0 4px 15px rgba(255,215,0,0.4); transition:all 0.2s; margin-left:10px;
+      }
+      .voice-mic-btn:hover { transform:scale(1.1); }
+      .voice-mic-btn.listening { background:#FF4757 !important; animation:pulse-mic 1s infinite alternate; }
+      @keyframes pulse-mic {
+        from { transform:scale(1); box-shadow:0 0 10px #FF4757; }
+        to   { transform:scale(1.15); box-shadow:0 0 25px #FF4757; }
+      }
+
+      /* ── TOAST DE VOZ ── */
+      #voice-toast-bar {
+        position:fixed; bottom:30px; left:50%;
+        transform:translateX(-50%) translateY(100px);
+        background:rgba(13,18,33,0.95); border:2px solid #FFD700;
+        backdrop-filter:blur(20px); border-radius:30px;
+        padding:14px 28px; display:flex; align-items:center; gap:14px;
+        color:#FFF; font-size:16px; font-weight:700; z-index:9999999;
+        opacity:0; transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      }
+      #voice-toast-bar.show { transform:translateX(-50%) translateY(0); opacity:1; }
+
+      /* ── MODAL FULL-SCREEN BASE ── */
+      .cust-modal {
+        position:fixed; top:0; left:0; right:0; bottom:0;
+        background:rgba(5,8,20,0.96); backdrop-filter:blur(30px);
+        z-index:9999999; display:none; flex-direction:column;
+      }
+      .cust-modal.show { display:flex; }
+      .cust-modal-header {
+        display:flex; align-items:center; justify-content:space-between;
+        padding:24px 32px 16px; flex-shrink:0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+      }
+      .cust-modal-header h2 { margin:0; font-size:26px; font-weight:900; color:#FFD700; }
+      .cust-modal-body {
+        flex:1; overflow-y:auto; padding:24px 32px;
+        scrollbar-width:thin; scrollbar-color:rgba(255,215,0,0.3) transparent;
+      }
+      .modal-close-btn {
+        background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2);
+        color:#FFF; font-size:20px; cursor:pointer;
+        border-radius:50%; width:44px; height:44px;
+        display:flex; align-items:center; justify-content:center;
+        transition:all 0.2s;
+      }
+      .modal-close-btn:hover { background:rgba(255,71,87,0.3); border-color:#FF4757; }
+
+      /* ── GRID DE FONTES ── */
+      .font-grid {
+        display:grid;
+        grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+        gap:12px;
+      }
+      .font-item-btn {
+        background:rgba(255,255,255,0.04);
+        border:2px solid rgba(255,255,255,0.1);
+        border-radius:14px; padding:18px 12px;
+        color:#FFF; cursor:pointer; text-align:center;
+        font-size:22px; font-weight:700;
+        transition:all 0.2s; line-height:1.2;
+      }
+      .font-item-btn small { display:block; font-size:11px; opacity:0.5; margin-top:4px; font-family:sans-serif; font-weight:400; }
+      .font-item-btn:hover { border-color:var(--iptv-accent,#FFD700); background:rgba(255,215,0,0.08); transform:translateY(-2px); }
+      .font-item-btn.active {
+        border-color:var(--iptv-accent,#FFD700) !important;
+        background:rgba(255,215,0,0.15) !important;
+        color:var(--iptv-accent,#FFD700) !important;
+        box-shadow:0 0 16px rgba(255,215,0,0.3);
+      }
+
+      /* ── GRID TEMAS ── */
+      .theme-grid {
+        display:grid;
+        grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
+        gap:14px;
+      }
+      .theme-card {
+        border-radius:16px; padding:18px 14px; cursor:pointer;
+        text-align:center; font-size:13px; font-weight:700;
+        border:2px solid transparent; transition:all 0.2s;
+        display:flex; flex-direction:column; align-items:center; gap:8px;
+      }
+      .theme-card:hover { transform:scale(1.05); border-color:rgba(255,255,255,0.5); }
+      .theme-card.active { border-color:#FFF !important; transform:scale(1.07); box-shadow:0 0 20px rgba(255,255,255,0.3); }
+      .theme-card-swatch { display:flex; gap:5px; }
+      .theme-card-swatch span { width:18px; height:18px; border-radius:50%; border:1px solid rgba(255,255,255,0.3); }
+
+      /* ── MODELOS DE COR ── */
+      .color-model-grid {
+        display:grid;
+        grid-template-columns:repeat(auto-fill, minmax(160px,1fr));
+        gap:12px;
+      }
+      .color-model-btn {
+        border-radius:14px; padding:20px 10px; cursor:pointer;
+        font-size:14px; font-weight:800; text-align:center;
+        border:2px solid transparent; transition:all 0.2s;
+      }
+      .color-model-btn:hover { transform:scale(1.05); }
+      .color-model-btn.active { outline:3px solid #FFF; transform:scale(1.07); }
+
+      /* ── BOTÕES INJETADOS: mesma aparência dos outros botões de settings ── */
+      #inj-font-btn, #inj-color-btn, #inj-fcolor-btn {
+        background: rgba(255,255,255,0.04) !important;
+        border: 1px solid rgba(255,215,0,0.55) !important;
+        color: #FFFFFF !important;
+        border-radius: 12px !important;
+        box-shadow: none !important;
+      }
+      #inj-font-btn:hover, #inj-color-btn:hover, #inj-fcolor-btn:hover {
+        background: rgba(255,215,0,0.1) !important;
+        border-color: #FFD700 !important;
+      }
+
+      /* ── MODO DESEMPENHO: remove tudo quando ativo ── */
+      body.perf-mode *, body.perf-mode *::before, body.perf-mode *::after {
+        animation: none !important;
+        transition: none !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        filter: none !important;
+        backdrop-filter: none !important;
+        background-image: none !important;
+      }
+      body.perf-mode .cust-modal { backdrop-filter: none !important; }
+    
+      /* SIDEBAR LOCK: impede abertura por setas do controle */
+      body.iptv-arrow-nav .sidebar-container { width:68px!important; max-width:68px!important; overflow:hidden!important; transition:none!important; }
+      body.iptv-arrow-nav .sidebar-container.expanded { width:68px!important; max-width:68px!important; }
+      body.iptv-arrow-nav .sidebar-container span:not([class*='icon']),
+      body.iptv-arrow-nav .sidebar-container [class*='label'],
+      body.iptv-arrow-nav .sidebar-container [class*='text'],
+      body.iptv-arrow-nav .sidebar-container [class*='title'] { display:none!important; }
+
+
+/* STICKY VIEWPORT LOCK - IMPEDE A TELA DE SUBIR E MOSTRAR O FUNDO */
+html, body {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  width: 100vw !important;
+  position: fixed !important;
+  top: 0px !important;
+  left: 0px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+div[class*="overlay"], div[class*="movies-container"], div[class*="series-container"] {
+  top: 0px !important;
+  margin-top: 0px !important;
+  transform: none !important;
+}
+
+
+
+/* BOTAO DE ALARME / LEMBRETE NO EPG */
+    .epg-alarm-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      background: rgba(255, 215, 0, 0.15) !important;
+      border: 1px solid rgba(255, 215, 0, 0.4) !important;
+      color: #ffd700 !important;
+      padding: 5px 14px !important;
+      border-radius: 20px !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      margin-left: auto !important;
+      flex-shrink: 0 !important;
+    }
+    .epg-alarm-btn:hover, .epg-alarm-btn.focused, .epg-alarm-btn:focus {
+      background: rgba(255, 215, 0, 0.35) !important;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5) !important;
+      transform: scale(1.05) !important;
+    }
+
+    #iptv-reminder-modal {
+      position: fixed; top: 25px; left: 50%;
+      transform: translateX(-50%) translateY(-180%);
+      z-index: 999999; width: 540px; max-width: 92vw;
+      background: rgba(15, 15, 20, 0.96);
+      backdrop-filter: blur(25px) saturate(180%);
+      border: 2px solid rgba(255, 215, 0, 0.6);
+      border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.85), 0 0 30px rgba(255,215,0,0.35);
+      padding: 24px; color: #fff; transition: transform 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    #iptv-reminder-modal.active { transform: translateX(-50%) translateY(0); }
+</style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- TOAST VOZ -->
+    <div id="voice-toast-bar">
+      <span>🎙️</span>
+      <span class="vt-msg">Ouvindo...</span>
+      <span class="vt-query" style="color:#FFD700;"></span>
+    </div>
+
+    <!-- MODAL: FONTES (FULL SCREEN) -->
+    <div id="font-modal" class="cust-modal">
+      <div class="cust-modal-header">
+        <h2>🔤 Selecionar Fonte</h2>
+        <button class="modal-close-btn" onclick="document.getElementById('font-modal').classList.remove('show')">✖</button>
+      </div>
+      <div class="cust-modal-body">
+        <div class="font-grid" id="font-options-grid"></div>
+      </div>
+    </div>
+
+    <!-- MODAL: CORES (FULL SCREEN) -->
+    <div id="color-modal" class="cust-modal">
+      <div class="cust-modal-header">
+        <h2>🎨 Modelos de Cor Premium</h2>
+        <button class="modal-close-btn" onclick="document.getElementById('color-modal').classList.remove('show')">✖</button>
+      </div>
+      <div class="cust-modal-body">
+        <p style="color:rgba(255,255,255,0.5);margin:0 0 18px;font-size:13px;">Muda a cor do botão selecionado e a borda de todos os botões</p>
+        <div class="color-model-grid" id="color-model-grid"></div>
+      </div>
+    </div>
+
+    <!-- MODAL: TEMAS (FULL SCREEN) — intercepta Alterar Tema Luxo -->
+    <div id="theme-modal" class="cust-modal">
+      <div class="cust-modal-header">
+        <h2>🎨 Alterar Tema Luxo — 50 Temas</h2>
+        <button class="modal-close-btn" onclick="document.getElementById('theme-modal').classList.remove('show')">✖</button>
+      </div>
+      <div class="cust-modal-body">
+        <div class="theme-grid" id="theme-grid"></div>
+      </div>
+    </div>
+
+    <!-- MODAL COR DA FONTE -->
+    <div id="fcolor-modal" class="cust-modal" onclick="if(event.target===this)this.classList.remove('show')">
+      <div class="cust-modal-box" style="max-width:700px">
+        <div class="cust-modal-header">
+          <h2 style="margin:0;font-size:22px;">🎨 Cor da Fonte</h2>
+          <button onclick="document.getElementById('fcolor-modal').classList.remove('show')" class="modal-close-btn">✕</button>
+        </div>
+        <p style="margin:8px 0 16px;color:#aaa;font-size:13px;">Escolha a cor do texto em todo o aplicativo</p>
+        <div id="fcolor-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;"></div>
+        <div style="margin-top:20px;display:flex;align-items:center;gap:12px;">
+          <label style="color:#aaa;font-size:13px;">Cor personalizada:</label>
+          <input type="color" id="fcolor-custom-picker" value="#FFFFFF" style="width:50px;height:36px;border:none;background:none;cursor:pointer;">
+          <button onclick="applyFontColor(document.getElementById('fcolor-custom-picker').value)" 
+                  style="padding:8px 18px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:8px;cursor:pointer;">
+            Aplicar
+          </button>
+          <button onclick="resetFontColor()" 
+                  style="padding:8px 18px;background:rgba(255,100,100,0.15);border:1px solid rgba(255,100,100,0.4);color:#ff8888;border-radius:8px;cursor:pointer;">
+            ↺ Padrão
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+
+      // ══════════════════════════════════════════════
+      // NAVEGAÇÃO SUAVE DE TECLADO E ESC
+      // ══════════════════════════════════════════════
+
+      // ══════════════════════════════════════════════
+      // LISTA DE FONTES (existentes + 50 novas)
+      // ══════════════════════════════════════════════
+      const FONTS = [
+        // 🖌️ BRUSH / PINCEL / MARCADOR
+        { n:'Pacifico',           f:"'Pacifico',cursive",           s:'Pacifico',          cat:'Brush' },
+        { n:'Permanent Marker',   f:"'Permanent Marker',cursive",   s:'Permanent Marker',  cat:'Brush' },
+        { n:'Rock Salt',          f:"'Rock Salt',cursive",          s:'Rock Salt',         cat:'Brush' },
+        { n:'Kalam',              f:"'Kalam',cursive",              s:'Kalam Brush',       cat:'Brush' },
+        { n:'Gochi Hand',         f:"'Gochi Hand',cursive",         s:'Gochi Hand',        cat:'Brush' },
+        { n:'Indie Flower',       f:"'Indie Flower',cursive",       s:'Indie Flower',      cat:'Brush' },
+        { n:'Rye',                f:"'Rye',cursive",                s:'Rye Font',          cat:'Brush' },
+        { n:'Kranky',             f:"'Kranky',cursive",             s:'Kranky',            cat:'Brush' },
+        { n:'Freckle Face',       f:"'Freckle Face',cursive",       s:'Freckle Face',      cat:'Brush' },
+        { n:'Covered By Your Grace', f:"'Covered By Your Grace',cursive", s:'Covered Grace', cat:'Brush' },
+
+        // 🪨 GRUNGE / ROCK (estilo Rock Salt)
+        { n:'Special Elite',       f:"'Special Elite',cursive",       s:'Special Elite',      cat:'Grunge' },
+        { n:'Creepster',           f:"'Creepster',cursive",           s:'CREEPSTER',          cat:'Grunge' },
+        { n:'Finger Paint',        f:"'Finger Paint',cursive",        s:'Finger Paint',       cat:'Grunge' },
+        { n:'Luckiest Guy',        f:"'Luckiest Guy',cursive",        s:'LUCKIEST GUY',       cat:'Grunge' },
+        { n:'Ranchers',            f:"'Ranchers',cursive",            s:'RANCHERS',           cat:'Grunge' },
+        { n:'Righteous',           f:"'Righteous',cursive",           s:'RIGHTEOUS',          cat:'Grunge' },
+        { n:'Changa One',          f:"'Changa One',sans-serif",       s:'CHANGA ONE',         cat:'Grunge' },
+        { n:'Gravitas One',        f:"'Gravitas One',cursive",        s:'Gravitas One',       cat:'Grunge' },
+        { n:'Ultra',               f:"'Ultra',serif",                 s:'ULTRA BOLD',         cat:'Grunge' },
+        { n:'Holtwood One SC',     f:"'Holtwood One SC',serif",       s:'HOLTWOOD SC',        cat:'Grunge' },
+        { n:'Boogaloo',            f:"'Boogaloo',sans-serif",         s:'Boogaloo',           cat:'Grunge' },
+        { n:'Fredoka One',         f:"'Fredoka One',cursive",         s:'Fredoka One',        cat:'Grunge' },
+        { n:'Shrikhand',           f:"'Shrikhand',cursive",           s:'Shrikhand',          cat:'Grunge' },
+        { n:'Lilita One',          f:"'Lilita One',cursive",          s:'Lilita One!',        cat:'Grunge' },
+        { n:'Monoton',             f:"'Monoton',cursive",             s:'MONOTON',            cat:'Grunge' },
+        { n:'Faster One',          f:"'Faster One',cursive",          s:'FASTER ONE!',        cat:'Grunge' },
+        { n:'Teko',                f:"'Teko',sans-serif",             s:'TEKO BOLD',          cat:'Grunge' },
+        { n:'Passion One',         f:"'Passion One',cursive",         s:'PASSION ONE',        cat:'Grunge' },
+        { n:'Squada One',          f:"'Squada One',cursive",          s:'SQUADA ONE',         cat:'Grunge' },
+        { n:'Russo One',           f:"'Russo One',sans-serif",        s:'RUSSO ONE',          cat:'Grunge' },
+
+        // ✍️ CALIGRAFIA / SCRIPT
+        { n:'Dancing Script',     f:"'Dancing Script',cursive",     s:'Dancing Script',    cat:'Script' },
+        { n:'Great Vibes',        f:"'Great Vibes',cursive",        s:'Great Vibes',       cat:'Script' },
+        { n:'Sacramento',         f:"'Sacramento',cursive",         s:'Sacramento',        cat:'Script' },
+        { n:'Allura',             f:"'Allura',cursive",             s:'Allura',            cat:'Script' },
+        { n:'Alex Brush',         f:"'Alex Brush',cursive",         s:'Alex Brush',        cat:'Script' },
+        { n:'Satisfy',            f:"'Satisfy',cursive",            s:'Satisfy',           cat:'Script' },
+        { n:'Kaushan Script',     f:"'Kaushan Script',cursive",     s:'Kaushan Script',    cat:'Script' },
+        { n:'Lobster',            f:"'Lobster',cursive",            s:'Lobster',           cat:'Script' },
+        { n:'Cookie',             f:"'Cookie',cursive",             s:'Cookie',            cat:'Script' },
+        { n:'Yellowtail',         f:"'Yellowtail',cursive",         s:'Yellowtail',        cat:'Script' },
+        { n:'Pinyon Script',      f:"'Pinyon Script',cursive",      s:'Pinyon Script',     cat:'Script' },
+        { n:'Italianno',          f:"'Italianno',cursive",          s:'Italianno',         cat:'Script' },
+        { n:'Courgette',          f:"'Courgette',cursive",          s:'Courgette',         cat:'Script' },
+        { n:'Marck Script',       f:"'Marck Script',cursive",       s:'Marck Script',      cat:'Script' },
+        { n:'Waterfall',          f:"'Waterfall',cursive",          s:'Waterfall',         cat:'Script' },
+        { n:'Mrs Saint Delafield',f:"'Mrs Saint Delafield',cursive",s:'Mrs Delafield',     cat:'Script' },
+        { n:'Zeyada',             f:"'Zeyada',cursive",             s:'Zeyada',            cat:'Script' },
+        { n:'Are You Serious',    f:"'Are You Serious',cursive",    s:'Are You Serious',   cat:'Script' },
+
+        // ✏️ HANDWRITTEN / TIPO PATRICK HAND
+        { n:'Patrick Hand',       f:"'Patrick Hand',cursive",       s:'Patrick Hand',      cat:'Mão' },
+        { n:'Caveat',             f:"'Caveat',cursive",             s:'Caveat',            cat:'Mão' },
+        { n:'Amatic SC',          f:"'Amatic SC',cursive",          s:'Amatic SC',         cat:'Mão' },
+        { n:'Shadows Into Light', f:"'Shadows Into Light',cursive", s:'Shadows Into Light',cat:'Mão' },
+        { n:'Handlee',            f:"'Handlee',cursive",            s:'Handlee',           cat:'Mão' },
+        { n:'Architects Daughter',f:"'Architects Daughter',cursive",s:'Architects Daughter',cat:'Mão' },
+        { n:'Schoolbell',         f:"'Schoolbell',cursive",         s:'Schoolbell',        cat:'Mão' },
+        { n:'Coming Soon',        f:"'Coming Soon',cursive",        s:'Coming Soon',       cat:'Mão' },
+        { n:'Annie Use Telescope',f:"'Annie Use Your Telescope',cursive", s:'Annie Telescope', cat:'Mão' },
+        { n:'Reenie Beanie',      f:"'Reenie Beanie',cursive",      s:'Reenie Beanie',     cat:'Mão' },
+        { n:'Fuzzy Bubbles',      f:"'Fuzzy Bubbles',cursive",      s:'Fuzzy Bubbles',     cat:'Mão' },
+        { n:'Walter Turncoat',    f:"'Walter Turncoat',cursive",    s:'Walter Turncoat',   cat:'Mão' },
+        { n:'Delius',             f:"'Delius',cursive",             s:'Delius',            cat:'Mão' },
+
+        // 💪 IMPACTO / DISPLAY GRANDES E INCORPORADAS
+        { n:'Bebas Neue',         f:"'Bebas Neue',sans-serif",      s:'BEBAS NEUE',        cat:'Display' },
+        { n:'Anton',              f:"'Anton',sans-serif",           s:'ANTON',             cat:'Display' },
+        { n:'Russo One',          f:"'Russo One',sans-serif",       s:'RUSSO ONE',         cat:'Display' },
+        { n:'Black Ops One',      f:"'Black Ops One',sans-serif",   s:'BLACK OPS ONE',     cat:'Display' },
+        { n:'Bungee',             f:"'Bungee',sans-serif",          s:'BUNGEE',            cat:'Display' },
+        { n:'Bungee Shade',       f:"'Bungee Shade',sans-serif",    s:'BUNGEE SHADE',      cat:'Display' },
+        { n:'Bangers',            f:"'Bangers',cursive",            s:'BANGERS!',          cat:'Display' },
+        { n:'Titan One',          f:"'Titan One',sans-serif",       s:'TITAN ONE',         cat:'Display' },
+        { n:'Abril Fatface',      f:"'Abril Fatface',serif",        s:'Abril Fatface',     cat:'Display' },
+        { n:'Lilita One',         f:"'Lilita One',cursive",         s:'Lilita One',        cat:'Display' },
+        { n:'Sansita Swashed',    f:"'Sansita Swashed',cursive",    s:'Sansita Swashed',   cat:'Display' },
+        { n:'Baloo 2',            f:"'Baloo 2',cursive",            s:'Baloo 2 Bold',      cat:'Display' },
+        { n:'Ribeye Marrow',      f:"'Ribeye Marrow',serif",        s:'Ribeye Marrow',     cat:'Display' },
+        { n:'Cherry Bomb One',    f:"'Cherry Bomb One',cursive",    s:'Cherry Bomb',       cat:'Display' },
+        { n:'Rubik Dirt',         f:"'Rubik Dirt',cursive",         s:'Rubik Dirt',        cat:'Display' },
+        { n:'Rubik Wet Paint',    f:"'Rubik Wet Paint',cursive",    s:'Rubik Wet Paint',   cat:'Display' },
+        { n:'Rubik Moonrocks',    f:"'Rubik Moonrocks',cursive",    s:'Rubik Moonrocks',   cat:'Display' },
+        { n:'Chewy',              f:"'Chewy',cursive",              s:'Chewy',             cat:'Display' },
+        { n:'Boogaloo',           f:"'Boogaloo',sans-serif",        s:'Boogaloo',          cat:'Display' },
+        { n:'Skranji',            f:"'Skranji',cursive",            s:'Skranji',           cat:'Display' },
+        { n:'Pirata One',         f:"'Pirata One',cursive",         s:'Pirata One',        cat:'Display' },
+        { n:'Uncial Antiqua',     f:"'Uncial Antiqua',cursive",     s:'Uncial Antiqua',    cat:'Display' },
+        { n:'Caesar Dressing',    f:"'Caesar Dressing',cursive",    s:'Caesar Dressing',   cat:'Display' },
+        { n:'Fredericka the Great',f:"'Fredericka the Great',serif", s:'Fredericka',       cat:'Display' },
+
+        // ✨ LUXO / EDITORIAL
+        { n:'Cinzel',             f:"'Cinzel',serif",               s:'CINZEL LUXO',       cat:'Luxo' },
+        { n:'Playfair Display',   f:"'Playfair Display',serif",     s:'Playfair Display',  cat:'Luxo' },
+        { n:'Yeseva One',         f:"'Yeseva One',serif",           s:'Yeseva One',        cat:'Luxo' },
+        { n:'Berkshire Swash',    f:"'Berkshire Swash',serif",      s:'Berkshire Swash',   cat:'Luxo' },
+        { n:'Fraunces',           f:"'Fraunces',serif",             s:'Fraunces',          cat:'Luxo' },
+        { n:'DM Serif Display',   f:"'DM Serif Display',serif",     s:'DM Serif Display',  cat:'Luxo' },
+        { n:'Inknut Antiqua',     f:"'Inknut Antiqua',serif",       s:'Inknut Antiqua',    cat:'Luxo' },
+        { n:'Young Serif',        f:"'Young Serif',serif",          s:'Young Serif',       cat:'Luxo' },
+        { n:'Cormorant',          f:"'Cormorant',serif",            s:'Cormorant',         cat:'Luxo' },
+        { n:'Italiana',           f:"'Italiana',serif",             s:'Italiana',          cat:'Luxo' },
+        { n:'Josefin Slab',       f:"'Josefin Slab',serif",         s:'Josefin Slab',      cat:'Luxo' },
+        { n:'Philosopher',        f:"'Philosopher',serif",          s:'Philosopher',       cat:'Luxo' },
+        { n:'Poiret One',         f:"'Poiret One',cursive",         s:'Poiret One',        cat:'Luxo' },
+
+        // 🚀 FUTURISTA / TECH
+        { n:'Orbitron',           f:"'Orbitron',sans-serif",        s:'ORBITRON',          cat:'Tech' },
+        { n:'Audiowide',          f:"'Audiowide',sans-serif",       s:'AUDIOWIDE',         cat:'Tech' },
+        { n:'Oxanium',            f:"'Oxanium',sans-serif",         s:'OXANIUM',           cat:'Tech' },
+        { n:'Electrolize',        f:"'Electrolize',sans-serif",     s:'ELECTROLIZE',       cat:'Tech' },
+        { n:'Michroma',           f:"'Michroma',sans-serif",        s:'MICHROMA',          cat:'Tech' },
+        { n:'Chakra Petch',       f:"'Chakra Petch',sans-serif",    s:'CHAKRA PETCH',      cat:'Tech' },
+        { n:'Turret Road',        f:"'Turret Road',sans-serif",     s:'TURRET ROAD',       cat:'Tech' },
+        { n:'Nova Cut',           f:"'Nova Cut',cursive",           s:'Nova Cut',          cat:'Tech' },
+        { n:'Nova Round',         f:"'Nova Round',cursive",         s:'Nova Round',        cat:'Tech' },
+
+        // 💻 PIXEL / MONO
+        { n:'Press Start 2P',     f:"'Press Start 2P',monospace",   s:'PRESS START',       cat:'Pixel' },
+        { n:'VT323',              f:"'VT323',monospace",            s:'VT323 PIXEL',       cat:'Pixel' },
+        { n:'Share Tech Mono',    f:"'Share Tech Mono',monospace",  s:'SHARE TECH MONO',   cat:'Pixel' },
+
+        // 📱 MODERNAS
+        { n:'Montserrat',         f:"'Montserrat',sans-serif",      s:'MONTSERRAT',        cat:'Moderna' },
+        { n:'Poppins',            f:"'Poppins',sans-serif",         s:'Poppins',           cat:'Moderna' },
+        { n:'Sora',               f:"'Sora',sans-serif",            s:'Sora',              cat:'Moderna' },
+        { n:'Syne',               f:"'Syne',sans-serif",            s:'Syne',              cat:'Moderna' },
+        { n:'Space Grotesk',      f:"'Space Grotesk',sans-serif",   s:'Space Grotesk',     cat:'Moderna' },
+        { n:'Manrope',            f:"'Manrope',sans-serif",         s:'Manrope',           cat:'Moderna' },
+        { n:'Plus Jakarta Sans',  f:"'Plus Jakarta Sans',sans-serif",s:'Plus Jakarta',     cat:'Moderna' },
+        { n:'Epilogue',           f:"'Epilogue',sans-serif",        s:'Epilogue',          cat:'Moderna' },
+        { n:'Raleway',            f:"'Raleway',sans-serif",         s:'RALEWAY',           cat:'Moderna' },
+        { n:'Inter',              f:"'Inter',sans-serif",           s:'INTER',             cat:'Moderna' },
+        { n:'Roboto',             f:"'Roboto',sans-serif",          s:'ROBOTO',            cat:'Moderna' },
+      ];
+
+      // ══════════════════════════════════════════════
+      // TEMAS — 20 ORIGINAIS DO APP + EXTRAS CUSTOMIZADOS
+      // ══════════════════════════════════════════════
+      const THEMES = [
+        // ─── 20 ORIGINAIS DO APP (dt = valor exato do bundle) ───
+        { n:'🌑 Default Dark',      dt:'default',           bg:'#0D0F1A', card:'#1A1D2E', ac:'#FFD700', tx:'#FFFFFF', bd:'#2A2D3E' },
+        { n:'⚡ Cyberpunk Neon',    dt:'cyberpunk-neon',    bg:'#0A0015', card:'#120025', ac:'#FF00FF', tx:'#00FFFF', bd:'#FF00FF44' },
+        { n:'🥇 VIP Gold',          dt:'vip-gold',          bg:'#1A1200', card:'#241900', ac:'#FFD700', tx:'#FFF8DC', bd:'#B8860B' },
+        { n:'🔷 Obsidian Blue',     dt:'obsidian-blue',     bg:'#020818', card:'#041025', ac:'#00BFFF', tx:'#E0F0FF', bd:'#1E3A5F' },
+        { n:'🟢 Emerald Matrix',    dt:'emerald-matrix',    bg:'#001200', card:'#001E00', ac:'#00FF41', tx:'#CCFFCC', bd:'#004400' },
+        { n:'💎 Ruby Velvet',       dt:'ruby-velvet',       bg:'#1A0008', card:'#280010', ac:'#FF0040', tx:'#FFCCD8', bd:'#880020' },
+        { n:'🔮 Amethyst Purple',   dt:'amethyst-purple',   bg:'#0D0015', card:'#160022', ac:'#9B59B6', tx:'#ECD6FF', bd:'#5B1177' },
+        { n:'🌙 Midnight Amber',    dt:'midnight-amber',    bg:'#0F0800', card:'#1A1000', ac:'#FFA000', tx:'#FFF3CC', bd:'#664400' },
+        { n:'☀️ Solar Gold',        dt:'solar-gold',        bg:'#1A1000', card:'#261800', ac:'#FFD600', tx:'#FFF8CC', bd:'#886000' },
+        { n:'🌊 Ocean Turquoise',   dt:'ocean-turquoise',   bg:'#001418', card:'#002025', ac:'#00CED1', tx:'#CCFAFA', bd:'#005A5C' },
+        { n:'🩷 Neon Pink',         dt:'neon-pink',         bg:'#160010', card:'#22001A', ac:'#FF3399', tx:'#FFD6EC', bd:'#8B0057' },
+        { n:'🥂 Champagne Luxury',  dt:'champagne-luxury',  bg:'#1A1510', card:'#252018', ac:'#FFC87C', tx:'#FFF0D4', bd:'#8B6914' },
+        { n:'🩶 Titanium Silver',   dt:'titanium-silver',   bg:'#0F0F12', card:'#1A1A20', ac:'#CBD5E1', tx:'#E2E8F0', bd:'#475569' },
+        { n:'🌌 Aurora Borealis',   dt:'aurora-borealis',   bg:'#01060F', card:'#061220', ac:'#00FF88', tx:'#CCFFE8', bd:'#00553A' },
+        { n:'🩸 Crimson Blood',     dt:'crimson-blood',     bg:'#120000', card:'#1E0000', ac:'#FF1744', tx:'#FFCCCC', bd:'#8B0000' },
+        { n:'💜 Electric Violet',   dt:'electric-violet',   bg:'#0C0015', card:'#150022', ac:'#BF00FF', tx:'#F0CCFF', bd:'#6B00AA' },
+        { n:'💚 Toxic Green',       dt:'toxic-green',       bg:'#021005', card:'#041A08', ac:'#39FF14', tx:'#CCFFE8', bd:'#1A6611' },
+        { n:'🥉 Copper Bronze',     dt:'copper-bronze',     bg:'#130900', card:'#1E1000', ac:'#CD7F32', tx:'#FFE8CC', bd:'#7A4500' },
+        { n:'❄️ Frost Cyan',        dt:'frost-cyan',        bg:'#050E1A', card:'#081628', ac:'#00FFFF', tx:'#CCFFFF', bd:'#006666' },
+        { n:'👑 Royal Monarch',     dt:'royal-monarch',     bg:'#0A0020', card:'#120030', ac:'#7B2FBE', tx:'#E8CCFF', bd:'#4A0080' },
+        // ─── EXTRAS CUSTOMIZADOS ───
+        { n:'🌊 Deep Ocean',        dt:'deep-ocean',        bg:'#010D1A', card:'#02152A', ac:'#00BFFF', tx:'#CCF0FF', bd:'#005580' },
+        { n:'🌸 Cherry Blossom',    dt:'cherry-blossom',    bg:'#1A0010', card:'#280018', ac:'#FF69B4', tx:'#FFE4F0', bd:'#8B235A' },
+        { n:'🍊 Sunset Orange',     dt:'sunset-orange',     bg:'#1A0800', card:'#260E00', ac:'#FF6B35', tx:'#FFE5D9', bd:'#8B2500' },
+        { n:'🔮 Crystal Galaxy',    dt:'crystal-galaxy',    bg:'#08001A', card:'#100028', ac:'#7C4DFF', tx:'#E6CCFF', bd:'#3D0099' },
+        { n:'🌅 Golden Hour',       dt:'golden-hour',       bg:'#1A1000', card:'#261800', ac:'#FFA500', tx:'#FFF3CC', bd:'#885500' },
+        { n:'🔥 Hell Fire',         dt:'hell-fire',         bg:'#140500', card:'#200800', ac:'#FF4500', tx:'#FFD0C0', bd:'#7A1500' },
+        { n:'🌺 Tropical Neon',     dt:'tropical-neon',     bg:'#001A10', card:'#00261A', ac:'#00FF7F', tx:'#CCFFE8', bd:'#006633' },
+        { n:'🎭 Masquerade',        dt:'masquerade',        bg:'#0F0A1A', card:'#180F28', ac:'#E879F9', tx:'#F9CCFF', bd:'#7B0099' },
+        { n:'⚗️ Lab Neon',          dt:'lab-neon',          bg:'#001515', card:'#002222', ac:'#00FFFF', tx:'#CCFFFF', bd:'#006666' },
+        { n:'🌙 Lunar Silver',      dt:'lunar-silver',      bg:'#08080F', card:'#0F0F18', ac:'#C0C0C0', tx:'#E8E8E8', bd:'#444455' },
+        { n:'🦋 Morpho Blue',       dt:'morpho-blue',       bg:'#000D1A', card:'#001428', ac:'#0070FF', tx:'#CCE5FF', bd:'#003380' },
+        { n:'🌋 Volcanic Red',      dt:'volcanic-red',      bg:'#150000', card:'#220000', ac:'#FF2200', tx:'#FFD0C8', bd:'#800000' },
+        { n:'🪸 Coral Reef',        dt:'coral-reef',        bg:'#1A0A00', card:'#281200', ac:'#FF6B6B', tx:'#FFE0E0', bd:'#882020' },
+        { n:'🍇 Grape Royale',      dt:'grape-royale',      bg:'#100015', card:'#180020', ac:'#9B59B6', tx:'#ECD6FF', bd:'#5B1177' },
+        { n:'🎋 Bamboo Zen',        dt:'bamboo-zen',        bg:'#030F06', card:'#061808', ac:'#7EC850', tx:'#E0F5CC', bd:'#3A6020' },
+        { n:'🌼 Solar Flare',       dt:'solar-flare',       bg:'#1A1000', card:'#261800', ac:'#FFD600', tx:'#FFF8CC', bd:'#886000' },
+        { n:'🫐 Blueberry Night',   dt:'blueberry-night',   bg:'#08081A', card:'#0F0F28', ac:'#6677FF', tx:'#D0D4FF', bd:'#2233AA' },
+        { n:'🐉 Dragon Scale',      dt:'dragon-scale',      bg:'#0F0500', card:'#180A00', ac:'#FF6600', tx:'#FFE5CC', bd:'#7A2600' },
+        { n:'🌌 Milky Way',         dt:'milky-way',         bg:'#05050F', card:'#0A0A1A', ac:'#8888FF', tx:'#DDDDFF', bd:'#333366' },
+        { n:'🦚 Peacock',           dt:'peacock',           bg:'#001515', card:'#002222', ac:'#00A693', tx:'#CCFFFA', bd:'#004A42' },
+        { n:'🌹 Blood Rose',        dt:'blood-rose',        bg:'#150005', card:'#220008', ac:'#CC0044', tx:'#FFD0DF', bd:'#770022' },
+        { n:'🧊 Permafrost',        dt:'permafrost',        bg:'#050810', card:'#080C1A', ac:'#88C8FF', tx:'#DDEEFF', bd:'#335577' },
+        { n:'☄️ Asteroid',          dt:'asteroid',          bg:'#050505', card:'#0A0A0A', ac:'#D0D0D0', tx:'#EDEDED', bd:'#303030' },
+        { n:'🌠 Shooting Star',     dt:'shooting-star',     bg:'#04040E', card:'#08081C', ac:'#FFFFAA', tx:'#FFFFF0', bd:'#555500' },
+        { n:'🦊 Fox Fire',          dt:'fox-fire',          bg:'#150800', card:'#201000', ac:'#FF8C00', tx:'#FFEACC', bd:'#773A00' },
+        { n:'🎆 Fireworks',         dt:'fireworks',         bg:'#0A0005', card:'#120008', ac:'#FF4081', tx:'#FFD0DF', bd:'#7A1A40' },
+        { n:'🫧 Bubble Gum',        dt:'bubble-gum',        bg:'#1A0015', card:'#280020', ac:'#FF77DD', tx:'#FFD4FF', bd:'#880055' },
+        { n:'🧙 Wizard',            dt:'wizard',            bg:'#080018', card:'#100028', ac:'#AA44FF', tx:'#EDD4FF', bd:'#5500AA' },
+        { n:'🌊 Aquamarine',        dt:'aquamarine',        bg:'#001812', card:'#002518', ac:'#7FFFD4', tx:'#CCFFF0', bd:'#2A8060' },
+        { n:'⚡ Plasma Storm',      dt:'plasma-storm',      bg:'#050012', card:'#08001E', ac:'#6644FF', tx:'#D4CCFF', bd:'#2200AA' },
+        { n:'🌻 Sunflower',         dt:'sunflower-field',   bg:'#1A1500', card:'#261E00', ac:'#F5C518', tx:'#FFF8CC', bd:'#8B7000' },
+        // ── TEMAS PRETO E BRANCO ──
+        { n:'⬛ Abismo Negro',      dt:'abyss-black',       bg:'#000000', card:'#0A0A0A', ac:'#E0E0E0', tx:'#FFFFFF', bd:'#1A1A1A' },
+        { n:'⚪ Branco Neve',       dt:'snow-white',        bg:'#F5F5F5', card:'#FFFFFF', ac:'#333333', tx:'#000000', bd:'#CCCCCC' },
+        { n:'🪂 Grafite Cinema',   dt:'graphite-cinema',   bg:'#1C1C1C', card:'#2C2C2C', ac:'#F0F0F0', tx:'#E0E0E0', bd:'#444444' },
+        { n:'🖤 Noir Vintage',     dt:'noir-vintage',      bg:'#0D0D0D', card:'#1A1A1A', ac:'#C8C8C8', tx:'#D0D0D0', bd:'#303030' },
+        { n:'🪶 Chumbo Metal',     dt:'lead-metal',        bg:'#1A1A1A', card:'#252525', ac:'#8A8A8A', tx:'#CCCCCC', bd:'#3A3A3A' },
+        { n:'🎬 Preto Drama',      dt:'black-drama',       bg:'#050505', card:'#111111', ac:'#AAAAAA', tx:'#DDDDDD', bd:'#222222' },
+        { n:'📓 Papel Jornal',     dt:'newspaper',         bg:'#F2EFE4', card:'#FAF8F0', ac:'#2C2C2C', tx:'#1A1A1A', bd:'#AAAAAA' },
+        { n:'🔭 Foco P&B',         dt:'bw-focus',          bg:'#111111', card:'#222222', ac:'#FFFFFF', tx:'#F0F0F0', bd:'#333333' },
+      ];
+
+
+      // ══════════════════════════════════════════════
+      // MODELOS DE COR
+      // ══════════════════════════════════════════════
+      const COLOR_MODELS = [
+        // ── NÉON ──
+        { name:'⭐ Dourado',        accent:'#FFD700', border:'#B8860B', selectedBg:'rgba(255,215,0,0.28)',    textSel:'#000', glow:'#FFD70066' },
+        { name:'💠 Ciano Neon',     accent:'#00E5FF', border:'#0097A7', selectedBg:'rgba(0,229,255,0.22)',   textSel:'#000', glow:'#00E5FF55' },
+        { name:'🟣 Roxo Neon',      accent:'#C084FC', border:'#7C3AED', selectedBg:'rgba(192,132,252,0.25)', textSel:'#FFF', glow:'#C084FC55' },
+        { name:'🟢 Verde Neon',     accent:'#4ADE80', border:'#15803D', selectedBg:'rgba(74,222,128,0.25)',  textSel:'#000', glow:'#4ADE8055' },
+        { name:'🔴 Vermelho',       accent:'#FF4757', border:'#B91C1C', selectedBg:'rgba(255,71,87,0.25)',   textSel:'#FFF', glow:'#FF475755' },
+        { name:'🟠 Laranja Fogo',   accent:'#FF8C00', border:'#C05621', selectedBg:'rgba(255,140,0,0.25)',   textSel:'#000', glow:'#FF8C0055' },
+        { name:'🩷 Rosa Néon',      accent:'#F472B6', border:'#BE185D', selectedBg:'rgba(244,114,182,0.25)', textSel:'#000', glow:'#F472B655' },
+        { name:'💜 Violeta VIP',    accent:'#E879F9', border:'#86198F', selectedBg:'rgba(232,121,249,0.25)', textSel:'#FFF', glow:'#E879F955' },
+        { name:'⚡ Elétrico',       accent:'#FACC15', border:'#B45309', selectedBg:'rgba(250,204,21,0.28)',  textSel:'#000', glow:'#FACC1566' },
+        { name:'🔵 Azul Neon',      accent:'#3B82F6', border:'#1D4ED8', selectedBg:'rgba(59,130,246,0.25)',  textSel:'#FFF', glow:'#3B82F655' },
+        { name:'🍇 Ametista',       accent:'#A78BFA', border:'#5B21B6', selectedBg:'rgba(167,139,250,0.28)', textSel:'#FFF', glow:'#A78BFA55' },
+        { name:'🍋 Lima Cítrico',   accent:'#A3E635', border:'#3F6212', selectedBg:'rgba(163,230,53,0.25)',  textSel:'#000', glow:'#A3E63555' },
+        // ── METÁLICO ──
+        { name:'🥇 Ouro',           accent:'#FFD700', border:'#8B6914', selectedBg:'rgba(255,215,0,0.30)',   textSel:'#000', glow:'#FFD70066' },
+        { name:'🥈 Prata',          accent:'#E2E8F0', border:'#94A3B8', selectedBg:'rgba(226,232,240,0.20)', textSel:'#000', glow:'#E2E8F055' },
+        { name:'🥉 Bronze',         accent:'#CD7F32', border:'#92400E', selectedBg:'rgba(205,127,50,0.28)',  textSel:'#FFF', glow:'#CD7F3255' },
+        { name:'🔷 Titânio',        accent:'#60A5FA', border:'#1D4ED8', selectedBg:'rgba(96,165,250,0.25)',  textSel:'#FFF', glow:'#60A5FA55' },
+        { name:'🩶 Aço Inox',       accent:'#CBD5E1', border:'#475569', selectedBg:'rgba(203,213,225,0.22)', textSel:'#000', glow:'#CBD5E155' },
+        { name:'🪙 Cobre',          accent:'#B87333', border:'#7A4A00', selectedBg:'rgba(184,115,51,0.28)',  textSel:'#FFF', glow:'#B8733355' },
+        { name:'🔩 Cromo',          accent:'#C0C0C0', border:'#707070', selectedBg:'rgba(192,192,192,0.22)', textSel:'#000', glow:'#C0C0C044' },
+        // ── NATUREZA ──
+        { name:'🌈 Aurora Boreal',  accent:'#34D399', border:'#059669', selectedBg:'rgba(52,211,153,0.25)',  textSel:'#000', glow:'#34D39955' },
+        { name:'🍀 Esmeralda',      accent:'#10B981', border:'#064E3B', selectedBg:'rgba(16,185,129,0.28)',  textSel:'#FFF', glow:'#10B98155' },
+        { name:'🌊 Oceano',         accent:'#38BDF8', border:'#0369A1', selectedBg:'rgba(56,189,248,0.25)',  textSel:'#000', glow:'#38BDF855' },
+        { name:'🫧 Glacial',        accent:'#A5F3FC', border:'#0E7490', selectedBg:'rgba(165,243,252,0.22)', textSel:'#000', glow:'#A5F3FC55' },
+        { name:'🌺 Coral',          accent:'#FB7185', border:'#9F1239', selectedBg:'rgba(251,113,133,0.25)', textSel:'#FFF', glow:'#FB718555' },
+        { name:'🌸 Sakura',         accent:'#FF69B4', border:'#C2185B', selectedBg:'rgba(255,105,180,0.25)', textSel:'#000', glow:'#FF69B455' },
+        { name:'🌻 Girassol',       accent:'#FCD34D', border:'#92400E', selectedBg:'rgba(252,211,77,0.28)',  textSel:'#000', glow:'#FCD34D55' },
+        { name:'🌿 Floresta',       accent:'#86EFAC', border:'#166534', selectedBg:'rgba(134,239,172,0.22)', textSel:'#000', glow:'#86EFAC44' },
+        { name:'🌵 Agave',          accent:'#6EE7B7', border:'#065F46', selectedBg:'rgba(110,231,183,0.22)', textSel:'#000', glow:'#6EE7B744' },
+        // ── PREMIUM ESCURO ──
+        { name:'🌙 Meia-Noite',     accent:'#818CF8', border:'#3730A3', selectedBg:'rgba(129,140,248,0.28)', textSel:'#FFF', glow:'#818CF855' },
+        { name:'⬛ Obsidiana',       accent:'#94A3B8', border:'#334155', selectedBg:'rgba(148,163,184,0.18)', textSel:'#FFF', glow:'#94A3B844' },
+        { name:'🔥 Chama',          accent:'#F97316', border:'#9A3412', selectedBg:'rgba(249,115,22,0.28)',  textSel:'#FFF', glow:'#F9731655' },
+        { name:'🩸 Sangue',         accent:'#EF4444', border:'#7F1D1D', selectedBg:'rgba(239,68,68,0.28)',   textSel:'#FFF', glow:'#EF444455' },
+        { name:'🌋 Vulcão',         accent:'#F87171', border:'#991B1B', selectedBg:'rgba(248,113,113,0.25)', textSel:'#FFF', glow:'#F8717155' },
+        { name:'🔮 Cristal',        accent:'#7C3AED', border:'#4C1D95', selectedBg:'rgba(124,58,237,0.28)',  textSel:'#FFF', glow:'#7C3AED55' },
+        { name:'🌌 Galáxia',        accent:'#A78BFA', border:'#4C1D95', selectedBg:'rgba(167,139,250,0.22)', textSel:'#FFF', glow:'#A78BFA44' },
+        { name:'💀 Caveira',        accent:'#D1D5DB', border:'#374151', selectedBg:'rgba(209,213,219,0.15)', textSel:'#000', glow:'#D1D5DB33' },
+        // ── ESPECIAIS ──
+        { name:'🎭 Carnaval',       accent:'#F59E0B', border:'#92400E', selectedBg:'rgba(245,158,11,0.28)',  textSel:'#000', glow:'#F59E0B55' },
+        { name:'🍬 Candy',          accent:'#F9A8D4', border:'#BE185D', selectedBg:'rgba(249,168,212,0.25)', textSel:'#000', glow:'#F9A8D444' },
+        { name:'🎮 Gamer',          accent:'#00FF41', border:'#003B00', selectedBg:'rgba(0,255,65,0.18)',    textSel:'#000', glow:'#00FF4155' },
+        { name:'🤖 Robô',           accent:'#64748B', border:'#1E293B', selectedBg:'rgba(100,116,139,0.22)', textSel:'#FFF', glow:'#64748B44' },
+        { name:'🌅 Pôr do Sol',     accent:'#FB923C', border:'#9A3412', selectedBg:'rgba(251,146,60,0.28)',  textSel:'#000', glow:'#FB923C55' },
+        { name:'🫐 Mirtilo',        accent:'#6366F1', border:'#312E81', selectedBg:'rgba(99,102,241,0.28)',  textSel:'#FFF', glow:'#6366F155' },
+        { name:'🍉 Melancia',       accent:'#F43F5E', border:'#881337', selectedBg:'rgba(244,63,94,0.25)',   textSel:'#FFF', glow:'#F43F5E55' },
+        { name:'🧊 Gelo',           accent:'#BAE6FD', border:'#0369A1', selectedBg:'rgba(186,230,253,0.20)', textSel:'#000', glow:'#BAE6FD44' },
+        { name:'🪐 Saturno',        accent:'#D4A574', border:'#7C4A1E', selectedBg:'rgba(212,165,116,0.25)', textSel:'#000', glow:'#D4A57455' },
+        { name:'🦋 Borboleta',      accent:'#E879F9', border:'#701A75', selectedBg:'rgba(232,121,249,0.22)', textSel:'#FFF', glow:'#E879F944' },
+        { name:'🌙 Lua Cheia',      accent:'#FDE68A', border:'#78350F', selectedBg:'rgba(253,230,138,0.22)', textSel:'#000', glow:'#FDE68A44' },
+        { name:'🎯 Alvo',           accent:'#EF4444', border:'#DC2626', selectedBg:'rgba(239,68,68,0.22)',   textSel:'#FFF', glow:'#EF444455' },
+        { name:'🦊 Raposa',         accent:'#F97316', border:'#C2410C', selectedBg:'rgba(249,115,22,0.22)',  textSel:'#FFF', glow:'#F9731644' },
+        { name:'🧬 DNA',            accent:'#22D3EE', border:'#0E7490', selectedBg:'rgba(34,211,238,0.22)',  textSel:'#000', glow:'#22D3EE44' },
+        // ── PRETO E BRANCO ──
+        { name:'⬜ Branco',         accent:'#FFFFFF', border:'#CCCCCC', selectedBg:'rgba(255,255,255,0.15)', textSel:'#000', glow:'#FFFFFF44' },
+        { name:'⚪ Branco Gelo',    accent:'#F0F4F8', border:'#A0AEC0', selectedBg:'rgba(240,244,248,0.18)', textSel:'#000', glow:'#F0F4F844' },
+        { name:'⬛ Preto Puro',     accent:'#1A1A1A', border:'#333333', selectedBg:'rgba(30,30,30,0.80)',   textSel:'#FFF', glow:'#33333355' },
+        { name:'🖤 Grafite',        accent:'#4A4A4A', border:'#666666', selectedBg:'rgba(74,74,74,0.40)',   textSel:'#FFF', glow:'#4A4A4A55' },
+        { name:'🪶 Cinza Chumbo',   accent:'#6B7280', border:'#374151', selectedBg:'rgba(107,114,128,0.30)', textSel:'#FFF', glow:'#6B728055' },
+        { name:'🖥️ Cinza Claro',    accent:'#CBD5E1', border:'#94A3B8', selectedBg:'rgba(203,213,225,0.22)', textSel:'#000', glow:'#CBD5E155' },
+        { name:'🌟 Prata Premium',  accent:'#E8E8E8', border:'#B0B0B0', selectedBg:'rgba(232,232,232,0.20)', textSel:'#000', glow:'#E8E8E844' },
+        { name:'🔲 Xadrez P&B',     accent:'#D4D4D4', border:'#525252', selectedBg:'rgba(82,82,82,0.35)',   textSel:'#FFF', glow:'#D4D4D455' },
+      ];
+
+      function applyColorModel(m) {
+        let css = document.getElementById('iptv-color-override');
+        if (!css) { css = document.createElement('style'); css.id = 'iptv-color-override'; document.head.appendChild(css); }
+        css.textContent = `
+          /* Borda dos botões e itens — Tema Luxo só muda borda, NAO a cor da fonte */
+          .settings-grid-btn {
+            border-color: ${m.border} !important;
+          }
+          .list-item {
+            border-color: ${m.border} !important;
+          }
+
+          /* Settings SELECIONADO / foco */
+          .settings-grid-btn:focus, .settings-grid-btn.focused, .settings-grid-btn.active {
+            background: ${m.selectedBg} !important;
+            border-color: ${m.accent} !important;
+            color: ${m.textSel} !important;
+            box-shadow: 0 0 16px ${m.glow || m.accent+'55'} !important;
+          }
+
+          /* Item de lista (canal/categoria) SELECIONADO */
+          .list-item.active, .list-item:focus {
+            background: ${m.selectedBg} !important;
+            border-color: ${m.accent} !important;
+            color: ${m.textSel} !important;
+            box-shadow: 0 0 14px ${m.glow || m.accent+'44'} !important;
+          }
+          .list-item:hover { border-color: ${m.accent} !important; }
+
+          /* ── SIDEBAR — TODOS os .nav-item com borda esquerda colorida ── */
+          .nav-item {
+            border-left: 3px solid transparent !important;
+            padding-left: 8px !important;
+            transition: border-color 0.2s, color 0.2s !important;
+          }
+          .nav-item:hover {
+            border-left-color: ${m.accent} !important;
+          }
+          .nav-item:hover svg { color: ${m.accent} !important; }
+          .nav-item:hover span { color: ${m.accent} !important; }
+
+          /* Item ativo da sidebar */
+          .nav-item.iptv-nav-active {
+            background: ${m.selectedBg} !important;
+            border-left: 3px solid ${m.accent} !important;
+            border-radius: 0 12px 12px 0 !important;
+          }
+          .nav-item.iptv-nav-active svg {
+            color: ${m.accent} !important;
+            filter: drop-shadow(0 0 6px ${m.glow || m.accent+'88'}) !important;
+          }
+          .nav-item.iptv-nav-active span {
+            color: ${m.accent} !important;
+            font-weight: 800 !important;
+          }
+
+          /* Paineis internos */
+          .font-item-btn { border-color: ${m.border} !important; }
+          .font-item-btn.active { border-color: ${m.accent} !important; background: ${m.selectedBg} !important; color: ${m.accent} !important; }
+          .color-model-btn.active { outline: 3px solid ${m.accent} !important; }
+        `;
+        localStorage.setItem('iptv_color_model', JSON.stringify(m));
+      }
+
+
+      // ══════════════════════════════════════════════
+      // COR DA FONTE
+      // ══════════════════════════════════════════════
+      const FONT_COLORS = [
+        { name:'⬜ Branco',        color:'#FFFFFF' },
+        { name:'🟡 Dourado',       color:'#FFD700' },
+        { name:'🔵 Azul Claro',    color:'#87CEEB' },
+        { name:'🟢 Verde',         color:'#00FF88' },
+        { name:'🔴 Vermelho',      color:'#FF6B6B' },
+        { name:'🩷 Rosa',          color:'#FF69B4' },
+        { name:'💜 Roxo',          color:'#C084FC' },
+        { name:'🟠 Laranja',       color:'#FF9F43' },
+        { name:'🩵 Ciano',         color:'#00E5FF' },
+        { name:'🟤 Marrom Claro',  color:'#D4A983' },
+        { name:'⚪ Cinza Claro',   color:'#CBD5E1' },
+        { name:'💚 Verde Limão',   color:'#A3E635' },
+        { name:'🫧 Glacial',       color:'#A5F3FC' },
+        { name:'💛 Amarelo',       color:'#FBBF24' },
+        { name:'🎀 Salmão',        color:'#FCA5A5' },
+        { name:'🌸 Pêssego',       color:'#FDBA74' },
+        { name:'🌿 Menta',         color:'#6EE7B7' },
+        { name:'🔮 Lavanda',       color:'#DDD6FE' },
+        { name:'☁️ Névoa',         color:'#E2E8F0' },
+        { name:'⭐ Âmbar',         color:'#FCD34D' },
+      ];
+
+      function applyFontColor(color) {
+        let css = document.getElementById('iptv-fcolor-override');
+        if(!css){ css=document.createElement('style'); css.id='iptv-fcolor-override'; document.head.appendChild(css); }
+        css.textContent = `
+          .list-item, .list-item span, .list-item p,
+          .nav-item span,
+          .channel-name, .category-name, .vod-title, .series-title,
+          .settings-grid-btn span, .settings-label,
+          h1, h2, h3, h4, p, label, span:not(svg span) {
+            color: ${color} !important;
+          }
+        `;
+        localStorage.setItem('iptv_font_color', color);
+        document.querySelectorAll('.fcolor-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.querySelector(`.fcolor-btn[data-color="${color}"]`);
+        if(btn) btn.classList.add('active');
+      }
+
+      function resetFontColor() {
+        const css = document.getElementById('iptv-fcolor-override');
+        if(css) css.textContent = '';
+        localStorage.removeItem('iptv_font_color');
+        document.querySelectorAll('.fcolor-btn').forEach(b => b.classList.remove('active'));
+      }
+
+      function applyTheme(t) {
+        // Aplica o data-theme — o CSS do React já cuida do estilo do tema
+        document.body.setAttribute('data-theme', t.dt);
+        localStorage.setItem('iptv_app_theme', t.dt);
+        localStorage.setItem('iptv_theme_obj', JSON.stringify(t));
+        // Ao escolher um tema, aplica automaticamente a cor do accent na sidebar e botões
+        if(t.ac) {
+          applyColorModel({
+            accent:     t.ac,
+            border:     t.bd || t.ac + '88',
+            selectedBg: t.ac + '28',
+            textSel:    '#FFF',
+            glow:       t.ac + '55'
+          });
+        }
+      }
+
+      // ══════════════════════════════════════════════
+      // BUSCA POR VOZ NATIVA - POLLING E CLIQUE GARANTIDO EM RESULTADOS DO REACT
+      // ══════════════════════════════════════════════
+      function triggerRealClick(el) {
+        if (!el) return;
+        try { el.focus(); } catch(e){}
+        try { el.click(); } catch(e){}
+        try {
+          var ev = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
+          el.dispatchEvent(ev);
+        } catch(e){}
+        try {
+          var evDown = new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window });
+          el.dispatchEvent(evDown);
+          var evUp = new MouseEvent('mouseup', { bubbles: true, cancelable: true, view: window });
+          el.dispatchEvent(evUp);
+        } catch(e){}
+      }
+
+      window.startVoiceSearch = function() {
+        var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) {
+          alert('Seu navegador não suporta reconhecimento de voz. Use o Chrome ou Edge.');
+          return;
+        }
+        var toast = document.getElementById('voice-toast-bar');
+        var qs = toast ? toast.querySelector('.vt-query') : null;
+        var ms = toast ? toast.querySelector('.vt-msg') : null;
+
+        if (toast) toast.classList.add('show');
+        if (ms) ms.textContent = 'Ouvindo...';
+        if (qs) qs.textContent = '';
+
+        var r = new SR();
+        r.lang = 'pt-BR';
+        r.continuous = false;
+        r.interimResults = true;
+
+        r.onresult = function(e) {
+          var rawText = '';
+          for (var i = e.resultIndex; i < e.results.length; i++) {
+            rawText += e.results[i][0].transcript;
+          }
+
+          // ZERO PONTUAÇÃO: Remove 100% de pontos, vírgulas, aspas e pontuação
+          var cleanText = rawText.replace(/[^a-zA-Z0-9\sà-úÀ-Ú]/g, '').replace(/\s+/g, ' ').trim();
+          if (qs) qs.textContent = cleanText;
+
+          if (e.results[0].isFinal) {
+            if (ms) ms.textContent = 'Buscando:';
+
+            var visibleInp = Array.from(document.querySelectorAll('input[type="text"], input[type="search"], #search-input, .search-input, input[placeholder*="Buscar"], input[placeholder*="buscar"]')).find(function(i) {
+              var r = i.getBoundingClientRect();
+              return r.width > 0 && r.height > 0;
+            });
+
+            function executeSearchAndClick() {
+              var currentInp = document.querySelector('input[type="text"], input[type="search"], #search-input, .search-input, input[placeholder*="Buscar"], input[placeholder*="buscar"]');
+              if (currentInp && window.setNativeInputValue) {
+                window.setNativeInputValue(currentInp, cleanText);
+              }
+
+              var attempts = 0;
+              var pollTimer = setInterval(function() {
+                attempts++;
+                var searchLower = cleanText.toLowerCase();
+                var searchShort = searchLower.replace(/\b(hd|fhd|sd|4k|ao vivo)\b/g, '').replace(/\s+/g, ' ').trim();
+
+                var targets = document.querySelectorAll(
+                  '.livetv-col-channels button, .livetv-col-channels div, .livetv-col-channels li, ' +
+                  '#movies-grid-container [class*="card"], #series-grid-container [class*="card"], ' +
+                  '.movies-grid-container [class*="card"], .series-grid-container [class*="card"], ' +
+                  '.movie-poster-btn, div[class*="channel"], div[class*="Card"], div[class*="card"], .list-item, .focusable'
+                );
+
+                var matchedEl = null;
+
+                for (var i = 0; i < targets.length; i++) {
+                  var el = targets[i];
+                  var txt = (el.textContent || '').toLowerCase().replace(/[^a-zA-Z0-9\sà-úÀ-Ú]/g, '');
+                  if (!txt) continue;
+
+                  var rect = el.getBoundingClientRect();
+                  if (rect.width > window.innerWidth * 0.85 && rect.height > window.innerHeight * 0.85) continue;
+
+                  if (txt.indexOf(searchLower) !== -1 || (searchShort.length >= 2 && txt.indexOf(searchShort) !== -1)) {
+                    matchedEl = el;
+                    break;
+                  }
+                }
+
+                if (!matchedEl && attempts >= 5) {
+                  var firstCandidate = document.querySelector(
+                    '.livetv-col-channels button, .livetv-col-channels div, ' +
+                    '#movies-grid-container [class*="card"], #series-grid-container [class*="card"], ' +
+                    'div[class*="channel"], div[class*="card"], .list-item'
+                  );
+                  if (firstCandidate) matchedEl = firstCandidate;
+                }
+
+                if (matchedEl || attempts >= 10) {
+                clearInterval(pollTimer);
+                if (matchedEl) {
+                  // Destaca o item encontrado na tela (foco dourado + wallpaper de fundo)
+                  if (typeof setFocus === 'function') {
+                    setFocus(matchedEl);
+                  }
+
+                  // SE FOR CANAL DE TV AO VIVO -> Abre a transmissão direto!
+                  // SE FOR FILME OU SÉRIE (ex: Lost) -> Apenas foca e mostra na tela (não abre direto)!
+                  var isLiveTv = matchedEl.closest('.livetv-col-channels') ||
+                                 (matchedEl.className && matchedEl.className.indexOf('channel') !== -1) ||
+                                 matchedEl.getAttribute('data-type') === 'live';
+
+                  if (isLiveTv) {
+                    triggerRealClick(matchedEl);
+                  }
+                }
+                setTimeout(function() { if (toast) toast.classList.remove('show'); }, 1500);
+              }
+              }, 120);
+            }
+
+            if (!visibleInp) {
+              var sidebar = document.querySelector('#sidebar, .sidebar-container, nav, aside, div[class*="sidebar"]');
+              var lupaBtn = (window.findSearchLupaBtn && sidebar ? window.findSearchLupaBtn(sidebar) : null) || document.querySelector('[class*="search"], [aria-label*="buscar"], [aria-label*="Search"]');
+              if (lupaBtn) {
+                try { lupaBtn.click(); } catch(err){}
+                setTimeout(executeSearchAndClick, 250);
+              } else {
+                executeSearchAndClick();
+              }
+            } else {
+              executeSearchAndClick();
+            }
+          }
+        };
+
+        r.onerror = function(e) {
+          if (ms) ms.textContent = 'Erro: ' + (e.error || 'Falha no microfone');
+          setTimeout(function() { if (toast) toast.classList.remove('show'); }, 3000);
+        };
+
+        try {
+          r.start();
+        } catch(err) {
+          console.error('Erro ao iniciar voz:', err);
+        }
+      };
+
+      // ══════════════════════════════════════════════
+      // POPULAR MODAIS
+      // ══════════════════════════════════════════════
+      // Carrega fonte do Google Fonts sob demanda
+      function loadGoogleFont(fontName, cb) {
+        const id = 'gfont-' + fontName.replace(/[^a-z0-9]/gi,'_').toLowerCase();
+        if(document.getElementById(id)) { if(cb) cb(); return; }
+        const link = document.createElement('link');
+        link.id = id; link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family='
+          + encodeURIComponent(fontName) + ':wght@400;700&display=swap';
+        if(cb) link.onload = cb;
+        document.head.appendChild(link);
+      }
+
+      // Fontes
+      const fontGrid = document.getElementById('font-options-grid');
+      let lastCat = '';
+      FONTS.forEach(f => {
+        if(f.cat !== lastCat) {
+          lastCat = f.cat;
+          const sep = document.createElement('div');
+          sep.style.cssText = 'grid-column:1/-1; color:rgba(255,255,255,0.35); font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:8px 0 2px; border-top:1px solid rgba(255,255,255,0.08); margin-top:4px;';
+          sep.textContent = '── ' + f.cat + ' ──';
+          fontGrid.appendChild(sep);
+        }
+        const btn = document.createElement('button');
+        btn.className = 'font-item-btn';
+        btn.innerHTML = f.s + '<small>' + f.n + '</small>';
+        // Carregar e pré-visualizar a fonte no botão
+        loadGoogleFont(f.n, () => { btn.style.fontFamily = f.f; });
+        btn.onclick = () => {
+          // Aplicar imediatamente com fallback
+          let css = document.getElementById('iptv-font-override');
+          if(!css){css=document.createElement('style');css.id='iptv-font-override';document.head.appendChild(css);}
+          css.textContent = 'body, p, h1, h2, h3, h4, h5, h6, span, a, button, input, label, div, li, td, th '+ '{ font-family: '+f.f+' !important; } '+ 'svg, i, em { font-family: initial !important; }';
+          localStorage.setItem('iptv_custom_font', f.f);
+          localStorage.setItem('iptv_custom_font_name', f.n);
+          // Garantir que a fonte está carregada (reforço)
+          loadGoogleFont(f.n, () => {
+            let css2 = document.getElementById('iptv-font-override');
+            if(css2) css2.textContent = 'body, p, h1, h2, h3, h4, h5, h6, span, a, button, input, label, div, li, td, th '+ '{ font-family: '+f.f+' !important; } '+ 'svg, i, em { font-family: initial !important; }';
+          });
+          document.querySelectorAll('.font-item-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+        };
+        fontGrid.appendChild(btn);
+      });
+
+      // Cores
+      const colorGrid = document.getElementById('color-model-grid');
+      COLOR_MODELS.forEach(m => {
+        const btn = document.createElement('button');
+        btn.className = 'color-model-btn';
+        btn.style.cssText = 'background:'+m.selectedBg+'; border:2px solid '+m.accent+'; color:'+m.accent+';';
+        btn.textContent = m.name;
+        btn.onclick = () => {
+          applyColorModel(m);
+          // Somente o painel CORES muda a cor da fonte
+          let fcss = document.getElementById('iptv-cores-textcolor');
+          if(!fcss){ fcss=document.createElement('style'); fcss.id='iptv-cores-textcolor'; document.head.appendChild(fcss); }
+          fcss.textContent = [
+            '.settings-grid-btn { color: '+m.accent+' !important; }',
+            '.list-item { color: '+m.accent+' !important; }',
+            '.nav-item span { color: '+m.accent+' !important; }'
+          ].join('\n');
+          localStorage.setItem('iptv_cores_textcolor', m.accent);
+          document.querySelectorAll('.color-model-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+        };
+        colorGrid.appendChild(btn);
+      });
+
+
+      // Cor da Fonte - grid
+      const fcolorGrid = document.getElementById('fcolor-grid');
+      if(fcolorGrid) FONT_COLORS.forEach(fc => {
+        const btn = document.createElement('button');
+        btn.className = 'fcolor-btn color-model-btn';
+        btn.setAttribute('data-color', fc.color);
+        btn.style.cssText = 'background:'+fc.color+'22; border:2px solid '+fc.color+'88; color:'+fc.color+';';
+        btn.textContent = fc.name;
+        btn.onclick = () => applyFontColor(fc.color);
+        fcolorGrid.appendChild(btn);
+      });
+
+      // Temas
+      const themeGrid = document.getElementById('theme-grid');
+      THEMES.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'theme-card';
+        card.style.cssText = 'background:'+t.bg+'; color:'+t.tx+'; border-color:'+t.bd+';';
+        card.innerHTML = `
+          <div class="theme-card-swatch">
+            <span style="background:${t.ac}"></span>
+            <span style="background:${t.card}"></span>
+            <span style="background:${t.bd}"></span>
+          </div>
+          <span>${t.n}</span>`;
+        card.onclick = () => {
+          applyTheme(t);
+          document.querySelectorAll('.theme-card').forEach(c=>c.classList.remove('active'));
+          card.classList.add('active');
+        };
+        themeGrid.appendChild(card);
+      });
+
+      // ══════════════════════════════════════════════
+      // OBSERVER — microfone, Fontes/Cores, Tema 50, Perf
+      // ══════════════════════════════════════════════
+      // ══════════════════════════════════════════════
+      // INJEÇÃO INFALÍVEL CONTÍNUA (SETTINGS & VOZ)
+      // ══════════════════════════════════════════════
+      // ══════════════════════════════════════════════════════════════
+      // INJEÇÃO INFALÍVEL: VOZ EM CIMA DA BUSCA & BOTÕES EM CONFIGURAÇÕES
+      // ══════════════════════════════════════════════════════════════
+      // ══════════════════════════════════════════════════════════════
+      // INJEÇÃO INFALÍVEL EM DIV/BUTTON (SETTINGS & VOZ)
+      // ══════════════════════════════════════════════════════════════
+      // ══════════════════════════════════════════════════════════════
+      // INJEÇÃO INFALÍVEL DUPLA (GRADE + TOPO DE CONFIGURAÇÕES & VOZ)
+      // ══════════════════════════════════════════════════════════════
+      // ══════════════════════════════════════════════════════════════
+      // INJEÇÃO INFALÍVEL DO MICROFONE DE VOZ EM CIMA DA LUPA / BUSCA
+      // ══════════════════════════════════════════════════════════════
+      // ══════════════════════════════════════════════════════════════
+      // INJEÇÃO UNIFICADA PERFEITA — VOZ, CONFIGURAÇÕES E ALARMES
+      // ══════════════════════════════════════════════════════════════
+      // ══════════════════════════════════════════════════════════════
+      // INJEÇÃO UNIFICADA PERFEITA — VOZ, CONFIGURAÇÕES E ALARMES
+      // ══════════════════════════════════════════════════════════════
+      function lockPlayerAndEpgDimensions() {
+        var videoWrap = document.querySelector('.video-wrapper, div[class*="video-wrapper"], div[class*="player-wrapper"]');
+        if (videoWrap) {
+          videoWrap.style.setProperty('height', '52vh', 'important');
+          videoWrap.style.setProperty('max-height', '52vh', 'important');
+          videoWrap.style.setProperty('min-height', '52vh', 'important');
+          videoWrap.style.setProperty('flex', '0 0 52vh', 'important');
+        }
+
+        var epgBox = document.querySelector('.epg-info, div[class*="epg-info"], section[class*="epg"]');
+        if (epgBox) {
+          epgBox.style.setProperty('height', '220px', 'important');
+          epgBox.style.setProperty('max-height', '220px', 'important');
+          epgBox.style.setProperty('min-height', '220px', 'important');
+          epgBox.style.setProperty('flex', '0 0 220px', 'important');
+          epgBox.style.setProperty('overflow-y', 'auto', 'important');
+        }
+      }
+
+      setInterval(lockPlayerAndEpgDimensions, 100);
+
+      function injectVoiceAboveSearchAndSettings() {
+        // A) SOMENTE UM MICROFONE — acima do primeiro input de busca visível na tela principal
+        if (!document.getElementById('voice-mic-above-search')) {
+          // Pega APENAS inputs de busca com placeholder específico (não inputs genéricos)
+          var searchInput = document.querySelector(
+            'input[placeholder*="Buscar"], input[placeholder*="buscar"], input[placeholder*="Pesquisar"], input[placeholder*="pesquisar"], input[type="search"]'
+          );
+
+          // Garante que não está dentro de um grid de filmes ou séries
+          if (searchInput && searchInput.parentElement) {
+            var isInsideGrid = searchInput.closest(
+              '[class*="movie"], [class*="serie"], [class*="vod"], [class*="grid"], [class*="catalog"]'
+            );
+            if (!isInsideGrid) {
+              var micTopBtn = document.createElement('button');
+              micTopBtn.id = 'voice-mic-above-search';
+              micTopBtn.className = 'focusable';
+              micTopBtn.style.cssText = 'display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;padding:10px 22px !important;background:linear-gradient(135deg,#FFD700,#FFA500) !important;color:#000 !important;border:none !important;border-radius:24px !important;font-weight:900 !important;font-size:14px !important;cursor:pointer !important;margin:8px 0 12px 0 !important;box-shadow:0 4px 20px rgba(255,215,0,0.5) !important;z-index:99999 !important;width:fit-content !important;';
+              micTopBtn.innerHTML = '<span>🎙️</span><span>Falar para Buscar</span>';
+              micTopBtn.onclick = function(e) {
+                e.preventDefault(); e.stopPropagation();
+                if (window.startVoiceSearch) window.startVoiceSearch();
+              };
+              searchInput.parentElement.insertBefore(micTopBtn, searchInput);
+            }
+          }
+        }
+
+        // B) INJEÇÃO DOS BOTÕES EM CONFIGURAÇÕES (Fontes, Cor da Fonte, Cores)
+        var isSettingsScreen = false;
+        var headers = document.querySelectorAll('h1, h2, h3, h4, div, span');
+        for (var h = 0; h < headers.length; h++) {
+          var ht = (headers[h].textContent || '').trim();
+          if (ht === 'Configurações' || ht === 'Settings') {
+            isSettingsScreen = true; break;
+          }
+        }
+
+        if (isSettingsScreen) {
+          if (!document.getElementById('inj-font-btn')) {
+            var allElements = Array.from(document.querySelectorAll('*'));
+            var themeElement = allElements.find(function(el) {
+              if (el.children.length > 2) return false;
+              var t = (el.textContent || '').trim();
+              return t.indexOf('Alternar Tema Luxo') !== -1 || t.indexOf('Tema Luxo') !== -1;
+            });
+
+            var targetItem = themeElement;
+            if (targetItem) {
+              while (targetItem && targetItem.parentElement && targetItem.parentElement.children.length < 3) {
+                targetItem = targetItem.parentElement;
+              }
+
+              if (targetItem && targetItem.parentElement) {
+                var gridParent = targetItem.parentElement;
+
+                var fb = document.createElement('div');
+                fb.id = 'inj-font-btn'; fb.className = 'focusable settings-grid-btn';
+                fb.style.cssText = 'padding:14px 18px;background:rgba(255,215,0,0.12);border:1.5px solid #FFD700;border-radius:12px;color:#FFD700;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:10px;font-size:14px;box-shadow:0 0 12px rgba(255,215,0,0.2);';
+                fb.innerHTML = '🔤 <span>Fontes</span>';
+                fb.onclick = function() { var m = document.getElementById('font-modal'); if(m) m.classList.add('show'); };
+
+                var fcb = document.createElement('div');
+                fcb.id = 'inj-fcolor-btn'; fcb.className = 'focusable settings-grid-btn';
+                fcb.style.cssText = 'padding:14px 18px;background:rgba(255,215,0,0.12);border:1.5px solid #FFD700;border-radius:12px;color:#FFD700;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:10px;font-size:14px;box-shadow:0 0 12px rgba(255,215,0,0.2);';
+                fcb.innerHTML = '🎨 <span>Cor da Fonte</span>';
+                fcb.onclick = function() { var m = document.getElementById('fcolor-modal'); if(m) m.classList.add('show'); };
+
+                var cb = document.createElement('div');
+                cb.id = 'inj-color-btn'; cb.className = 'focusable settings-grid-btn';
+                cb.style.cssText = 'padding:14px 18px;background:rgba(255,215,0,0.12);border:1.5px solid #FFD700;border-radius:12px;color:#FFD700;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:10px;font-size:14px;box-shadow:0 0 12px rgba(255,215,0,0.2);';
+                cb.innerHTML = '🎨 <span>Cores</span>';
+                cb.onclick = function() { var m = document.getElementById('color-modal'); if(m) m.classList.add('show'); };
+
+                gridParent.insertBefore(fb, targetItem.nextSibling);
+                gridParent.insertBefore(fcb, fb.nextSibling);
+                gridParent.insertBefore(cb, fcb.nextSibling);
+              }
+            }
+          }
+        }
+      }
+
+      setInterval(injectVoiceAboveSearchAndSettings, 150);
+
+      const observer = new MutationObserver(() => {
+        
+
+        // ── INJEÇÃO INFALÍVEL DOS BOTÕES BASEADA NO PRINT DO USUÁRIO ──
+        var allBtns = Array.from(document.querySelectorAll('button, div[role="button"], .focusable'));
+        var themeBtn = allBtns.find(function(b) {
+          var t = (b.textContent || '').trim();
+          return t.indexOf('Alternar Tema Luxo') !== -1 || t.indexOf('Tema Luxo') !== -1;
+        });
+
+        if (themeBtn && themeBtn.parentElement) {
+          if (!themeBtn._intercepted) {
+            themeBtn._intercepted = true;
+            themeBtn.addEventListener('click', function(e) {
+              e.stopImmediatePropagation();
+              var tm = document.getElementById('theme-modal');
+              if (tm) tm.classList.add('show');
+            }, true);
+          }
+
+          if (!document.getElementById('inj-font-btn')) {
+            var fb = document.createElement('button');
+            fb.id = 'inj-font-btn'; fb.className = 'focusable settings-grid-btn';
+            fb.innerHTML = '<span style="display:flex;align-items:center;gap:10px;">🔤 <span>Fontes</span></span>';
+            fb.onclick = function() { var m = document.getElementById('font-modal'); if(m) m.classList.add('show'); };
+
+            var cb = document.createElement('button');
+            cb.id = 'inj-color-btn'; cb.className = 'focusable settings-grid-btn';
+            cb.innerHTML = '<span style="display:flex;align-items:center;gap:10px;">🎨 <span>Cores</span></span>';
+            cb.onclick = function() { var m = document.getElementById('color-modal'); if(m) m.classList.add('show'); };
+
+            var fcb = document.createElement('button');
+            fcb.id = 'inj-fcolor-btn'; fcb.className = 'focusable settings-grid-btn';
+            fcb.innerHTML = '<span style="display:flex;align-items:center;gap:10px;">🎨 <span>Cor Fonte</span></span>';
+            fcb.onclick = function() { var m = document.getElementById('fcolor-modal'); if(m) m.classList.add('show'); };
+
+            var parent = themeBtn.parentElement;
+            parent.insertBefore(fb, themeBtn.nextSibling);
+            parent.insertBefore(cb, fb.nextSibling);
+            parent.insertBefore(fcb, cb.nextSibling);
+          }
+        }
+
+        // Rastrear item ativo da sidebar (.nav-item) para aplicar cor selecionada
+        document.querySelectorAll('.nav-item').forEach(navBtn => {
+          if(!navBtn._navColorBound) {
+            navBtn._navColorBound = true;
+            // Fechar overlay (Cine IA, Roleta) antes de navegar
+            navBtn.addEventListener('click', function() {
+              if(window._iptvCloseAny) window._iptvCloseAny();
+            }, true); // capture phase: antes do React
+            navBtn.addEventListener('click', () => {
+              document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('iptv-nav-active'));
+              navBtn.classList.add('iptv-nav-active');
+            });
+          }
+        });
+        // Marcar o primeiro nav-item como ativo na inicialização (se nenhum estiver marcado)
+        const navItems = document.querySelectorAll('.nav-item');
+        if(navItems.length > 0 && !document.querySelector('.iptv-nav-active')) {
+          navItems[0].classList.add('iptv-nav-active');
+        }
+              
+        
+
+      });
+
+      const wi = setInterval(()=>{ if(document.body){ clearInterval(wi); observer.observe(document.body,{childList:true,subtree:true}); } }, 200);
+
+      // Restaurar configurações salvas
+      const sfc = localStorage.getItem('iptv_font_color');
+      if(sfc) { setTimeout(() => applyFontColor(sfc), 800); }
+      const sf = localStorage.getItem('iptv_custom_font');
+      if(sf) {
+        let css=document.getElementById('iptv-font-override');
+        if(!css){css=document.createElement('style');css.id='iptv-font-override';document.head.appendChild(css);}
+        css.textContent='body, p, h1, h2, h3, h4, h5, h6, span, a, button, input, label, div, li, td, th '+ '{ font-family: '+sf+' !important; } '+ 'svg, i, em { font-family: initial !important; }';
+      }
+      const sc2 = localStorage.getItem('iptv_color_model');
+      if(sc2) { try{applyColorModel(JSON.parse(sc2));}catch(e){} }
+      const st = localStorage.getItem('iptv_theme_obj');
+      if(st) { try{applyTheme(JSON.parse(st));}catch(e){} }
+      // Restaurar cor de texto do painel Cores (independente do tema)
+      const sctc = localStorage.getItem('iptv_cores_textcolor');
+      if(sctc) {
+        setTimeout(() => {
+          let fcss = document.getElementById('iptv-cores-textcolor');
+          if(!fcss){ fcss=document.createElement('style'); fcss.id='iptv-cores-textcolor'; document.head.appendChild(fcss); }
+          fcss.textContent = [
+            '.settings-grid-btn { color: '+sctc+' !important; }',
+            '.list-item { color: '+sctc+' !important; }',
+            '.nav-item span { color: '+sctc+' !important; }'
+          ].join('\n');
+        }, 600);
+      }
+
+    })();
+
+    // ══════════════════════════════════════════════════════
+    // PROXY localStorage — intercepta ações REAIS do app (perf, hid vod, hid series)
+    // ══════════════════════════════════════════════════════
+    (function() {
+      function applyHide(id, selector, value) {
+        const isHid = value === 'true' || value === true || value === 1;
+        let el = document.getElementById(id);
+        if(!el){ el=document.createElement('style'); el.id=id; document.head.appendChild(el); }
+        el.textContent = isHid ? selector + '{display:none!important;}' : '';
+      }
+
+      function handleLsChange(key, value) {
+        switch(key) {
+          case 'iptv_perf_mode': {
+            const on = value === 'true' || value === true;
+            if(on) {
+              document.body.classList.add('turbo-perf-mode','perf-mode');
+              ['iptv-color-override','iptv-font-override','iptv-fcolor-override','iptv-cores-textcolor'].forEach(id => {
+                const el = document.getElementById(id); if(el) el.textContent='';
+              });
+              let pc = document.getElementById('iptv-perf-css');
+              if(!pc){pc=document.createElement('style');pc.id='iptv-perf-css';document.head.appendChild(pc);}
+              pc.textContent='*,*::before,*::after{animation:none!important;transition:none!important;box-shadow:none!important;backdrop-filter:none!important;}';
+            } else {
+              document.body.classList.remove('turbo-perf-mode','perf-mode');
+              const pc=document.getElementById('iptv-perf-css'); if(pc) pc.textContent='';
+              setTimeout(()=>{
+                const sc2=localStorage.getItem('iptv_color_model');
+                if(sc2){try{applyColorModel(JSON.parse(sc2));}catch(e){}}
+                const sfc=localStorage.getItem('iptv_font_color'); if(sfc) applyFontColor(sfc);
+              },100);
+            }
+            break;
+          }
+          case 'iptv_hide_vod':
+            applyHide('iptv-hid-vod',
+              '[class*="vod"],[class*="Vod"],[class*="VOD"],[class*="vodCateg"],[class*="VodCateg"]',
+              value);
+            break;
+          case 'iptv_hide_series':
+            applyHide('iptv-hid-series',
+              '[class*="serie"],[class*="Serie"],[class*="Series"]',
+              value);
+            break;
+          case 'iptv_hide_live':
+            applyHide('iptv-hid-live',
+              '.livetv-col-categories,.livetv-col-channels,[class*="livetv"],[class*="LiveTv"],[class*="live-tv"]',
+              value);
+            break;
+        }
+      }
+
+      // Interceptar localStorage.setItem do app
+      const _origSet = Storage.prototype.setItem;
+      Storage.prototype.setItem = function(key, value) {
+        _origSet.call(this, key, value);
+        if(this === localStorage) handleLsChange(key, value);
+      };
+
+      // Aplicar estado salvo ao carregar
+      ['iptv_perf_mode','iptv_hide_vod','iptv_hide_series','iptv_hide_live'].forEach(k => {
+        const v = localStorage.getItem(k);
+        if(v) handleLsChange(k, v);
+      });
+    })();
+
+    // ══════════════════════════════════════════════════════
+    // SIDEBAR SEMPRE VISÍVEL (Cine AI, Roleta e todas as abas)
+    // ══════════════════════════════════════════════════════
+    (function() {
+      const sidebarStyle = document.createElement('style');
+      sidebarStyle.id = 'iptv-sidebar-always';
+      sidebarStyle.textContent = `
+        /* Sidebar sempre visível em qualquer aba */
+        .sidebar-container {
+          display: flex !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          min-width: 68px !important;
+          pointer-events: auto !important;
+          z-index: 200000 !important;
+          position: fixed !important;
+          left: 0 !important;
+          top: 0 !important;
+          height: 100vh !important;
+        }
+        /* Hover em TODOS os botões de configuração */
+        .settings-grid-btn:hover {
+          border-color: var(--kb-ac, #FFD700) !important;
+          background: rgba(255,255,255,0.10) !important;
+          transform: translateY(-1px) scale(1.01) !important;
+          box-shadow: 0 4px 16px var(--kb-ac, #FFD700)22 !important;
+        }
+        .list-item:hover {
+          border-color: var(--kb-ac, #FFD700) !important;
+          background: rgba(255,255,255,0.06) !important;
+        }
+        .nav-item:hover {
+          color: var(--kb-ac, #FFD700) !important;
+          background: rgba(255,255,255,0.06) !important;
+        }
+      `;
+      document.head.appendChild(sidebarStyle);
+    })();
+
+    // ══════════════════════════════════════════════════════
+    // NAVEGAÇÃO POR TECLADO — setas, Enter, ESC (voltar), duplo ESC (sair)
+    // ══════════════════════════════════════════════════════
+    (function() {
+      'use strict';
+
+      // ── Fechar qualquer overlay/modal visível (Cine IA, Roleta, etc.) ──────
+      window._iptvCloseAny = function() {
+        // 1. Nossos modais customizados
+        const cm = document.querySelector('.cust-modal.show');
+        if(cm) { cm.classList.remove('show'); return true; }
+
+        // 2. Busca DIRETA por overlay .fade-in com position:fixed cobrindo a tela
+        //    (Roleta: #FFD700 | Cine-IA: #8B5CF6) - ambos usam .fade-in + fixed
+        //    NÃO usa elementFromPoint (sidebar z-index:200000 pode interferir)
+        const hw = window.innerWidth / 2;
+        const hh = window.innerHeight / 2;
+        const overlays = Array.from(document.querySelectorAll('.fade-in')).filter(function(el) {
+          const s = window.getComputedStyle(el);
+          const r = el.getBoundingClientRect();
+          return s.position === 'fixed'
+            && r.width >= hw   // cobre pelo menos metade da largura
+            && r.height >= hh; // cobre pelo menos metade da altura
+        });
+        if(overlays.length > 0) {
+          // Pegar o overlay com maior z-index
+          overlays.sort(function(a,b) {
+            return parseInt(getComputedStyle(b).zIndex||0) - parseInt(getComputedStyle(a).zIndex||0);
+          });
+          const ov = overlays[0];
+          // Primeiro button = botão de fechar (position:absolute top:20px right:20px)
+          const btn = ov.querySelector('button');
+          if(btn) { btn.click(); return true; }
+          ov.click(); return true;
+        }
+
+        // 3. Fallback: aria-label close
+        const cb = Array.from(document.querySelectorAll('button')).find(function(b) {
+          const r = b.getBoundingClientRect();
+          if(!r.width || !r.height) return false;
+          return (b.getAttribute('aria-label')||'').toLowerCase().match(/close|fechar/);
+        });
+        if(cb) { cb.click(); return true; }
+
+        return false;
+      };
+
+      // ── CSS do foco ────────────────────────────────────
+      const kbStyle = document.createElement('style');
+      kbStyle.id = 'iptv-kb-style';
+      kbStyle.textContent = `
+        .kb-focused {
+          outline: 3px solid var(--kb-ac, #FFD700) !important;
+          outline-offset: 3px !important;
+          box-shadow: 0 0 18px var(--kb-ac, #FFD700)55 !important;
+          position: relative !important; z-index: 2 !important;
+        }
+      `;
+      document.head.appendChild(kbStyle);
+
+      let kbEl = null;
+      let escCount = 0, escTimer = null;
+
+      // Sincronizar cor do foco com modelo de cor
+      const origACM = window.applyColorModel;
+      window.applyColorModel = function(m) {
+        document.documentElement.style.setProperty('--kb-ac', m.accent || '#FFD700');
+        return origACM && origACM(m);
+      };
+
+      // ── Helpers ───────────────────────────────────────
+
+      function visible(el) {
+        if(!el) return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && r.bottom > 0 && r.right > 0
+               && r.top < window.innerHeight && r.left < window.innerWidth;
+      }
+
+      function setFocus(el) {
+        if(kbEl) {
+          kbEl.classList.remove('kb-focused');
+          kbEl.classList.remove('focused');
+        }
+        kbEl = el;
+        if(el) {
+          el.classList.add('kb-focused');
+          el.classList.add('focused');
+          try { el.focus(); } catch(e){}
+          try {
+            el.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+            el.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+            el.dispatchEvent(new FocusEvent('focus', { bubbles: true }));
+          } catch(e){}
+          el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          if (typeof checkSubpageGlass === 'function') {
+            try { checkSubpageGlass(); } catch(err){}
+          }
+        }
+      }
+
+      function getNavItems() {
+        return Array.from(document.querySelectorAll('.nav-item')).filter(visible);
+      }
+
+      function sidebarEdge() {
+        const sb = document.querySelector('.sidebar, nav, [class*="sidebar-container"], [class*="SideBar"], [class*="side-bar"]');
+        if(sb) return sb.getBoundingClientRect().right;
+        return 100;
+      }
+
+      // Retorna overlay .fade-in ativo (Cine-IA, Roleta)
+      function getActiveOverlay() {
+        const hw = window.innerWidth / 2, hh = window.innerHeight / 2;
+        return Array.from(document.querySelectorAll('.fade-in')).find(function(el) {
+          const s = window.getComputedStyle(el);
+          const r = el.getBoundingClientRect();
+          return s.position === 'fixed' && r.width >= hw && r.height >= hh;
+        }) || null;
+      }
+
+      function visibleInGrid(el) {
+        if(!el) return false;
+        const r = el.getBoundingClientRect();
+        // Em grade de cards, não restringe a r.top < window.innerHeight para permitir rolar a tela até o final!
+        return r.width > 0 && r.height > 0 && r.right > 0 && r.left < window.innerWidth;
+      }
+
+      function visibleInGrid(el) {
+        if(!el) return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && r.right > 0 && r.left < window.innerWidth;
+      }
+
+      function visibleInGrid(el) {
+        if(!el) return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && r.right > 0 && r.left < window.innerWidth;
+      }
+
+      function getContentItems() {
+        const ov = getActiveOverlay();
+        if(ov) {
+          return Array.from(ov.querySelectorAll(
+            'button:not([style*="position: absolute"]),a,[role="button"]'
+          )).filter(function(el) {
+            const r = el.getBoundingClientRect();
+            return r.width > 10 && r.height > 10 && r.width < window.innerWidth * 0.95;
+          });
+        }
+
+        const edge = sidebarEdge();
+        const settBtns = Array.from(document.querySelectorAll('.settings-grid-btn')).filter(visibleInGrid);
+
+        const isCardGrid = document.querySelector('#movies-grid-container, #series-grid-container, .movies-grid-container, .series-grid-container, [class*="grid-container"]');
+        if (isCardGrid) {
+          const cards = Array.from(document.querySelectorAll('.movie-poster-btn, [class*="card"], [class*="poster"]')).filter(el => {
+            if(!visibleInGrid(el)) return false;
+            const r = el.getBoundingClientRect();
+            if(r.left < edge - 10) return false;
+            if(r.width < 40 || r.height < 40) return false;
+            return true;
+          });
+          if (cards.length > 0) {
+            const topCards = cards.filter(c => !cards.some(parent => parent !== c && parent.contains(c)));
+            if (topCards.length > 0) {
+              if (settBtns.length > 0) return [...topCards, ...settBtns];
+              return topCards;
+            }
+          }
+        }
+
+        const sel = [
+          '.focusable', '.settings-grid-btn', '.list-item',
+          '[class*="card"]', '[class*="vod"]', '[class*="serie"]',
+          '[class*="movie"]', '[class*="film"]', '[class*="channel"]',
+          '[class*="thumb"]', '[class*="poster"]', '[class*="episode"]',
+          '[class*="season"]', '[class*="item"]:not(.nav-item)',
+          '[role="button"]',
+          'button:not(.nav-item):not(.modal-close-btn):not(.voice-mic-btn)',
+          'a[href]'
+        ].join(',');
+
+        const all = Array.from(document.querySelectorAll(sel)).filter(el => {
+          if(!visibleInGrid(el)) return false;
+          const tag = el.tagName.toLowerCase();
+          if(['svg','img','br','hr','path','circle','rect','line','polygon','polyline'].includes(tag)) return false;
+          const r = el.getBoundingClientRect();
+          if(r.left < edge - 10) return false;
+          if(r.width < 20 || r.height < 20) return false;
+          return true;
+        });
+
+        const topAll = all.filter(c => !all.some(parent => parent !== c && parent.contains(c)));
+        return [...new Map(topAll.map(e => [e, e])).values()];
+      }
+
+      function gridNav(items, current, key) {
+        if(!items.length) return null;
+        if(!current || !items.includes(current)) return items[0];
+        const cRect = current.getBoundingClientRect();
+        const cx = cRect.left + cRect.width / 2;
+        const cy = cRect.top + cRect.height / 2;
+        
+        let best = null, bestScore = Infinity;
+        const isCardNav = current.matches && (current.matches('.movie-poster-btn, [class*="card"], [class*="poster"]') || (current.id && current.id.indexOf('inj-') !== -1));
+
+        for(const item of items) {
+          if(item === current) continue;
+          const r = item.getBoundingClientRect();
+          const ix = r.left + r.width / 2;
+          const iy = r.top + r.height / 2;
+          const dx = ix - cx, dy = iy - cy;
+          let score;
+
+          switch(key) {
+            case 'ArrowRight':
+              if(dx <= 5) continue;
+              if(isCardNav && Math.abs(dy) > cRect.height * 0.6) continue;
+              score = dx + Math.abs(dy) * 3;
+              break;
+            case 'ArrowLeft':
+              if(dx >= -5) continue;
+              if(isCardNav && Math.abs(dy) > cRect.height * 0.6) continue;
+              score = -dx + Math.abs(dy) * 3;
+              break;
+            case 'ArrowDown':
+              if (isCardNav) {
+                if (r.top < cRect.bottom - 15) continue;
+                score = (r.top - cRect.top) + Math.abs(dx) * 1.5;
+              } else {
+                if(dy <= 5) continue;
+                score = dy * 1.5 + Math.abs(dx);
+              }
+              break;
+            case 'ArrowUp':
+              if (isCardNav) {
+                if (r.bottom > cRect.top + 15) continue;
+                score = (cRect.top - r.top) + Math.abs(dx) * 1.5;
+              } else {
+                if(dy >= -5) continue;
+                score = -dy * 1.5 + Math.abs(dx);
+              }
+              break;
+            default: continue;
+          }
+
+          if(score < bestScore) { bestScore = score; best = item; }
+        }
+        return best || null;
+      }
+
+      function goBack() {
+        // 1. Tenta fechar qualquer modal / overlay aberto (Cine IA, Roleta, Fontes, Cores, etc.)
+        if (window._iptvCloseAny && window._iptvCloseAny()) return true;
+
+        // 2. Se o modal de saída já estiver aberto, fecha o modal de saída
+        var exitModal = document.getElementById('iptv-exit-modal');
+        if (exitModal && exitModal.style.display === 'flex') {
+          exitModal.style.display = 'none';
+          return true;
+        }
+
+        // 3. Tenta clicar no botão de voltar do React App (ex: de dentro da aba Filmes, Séries, Detalhes)
+        var backBtns = Array.from(document.querySelectorAll(
+          '[aria-label="back"],[aria-label="voltar"],[class*="back-btn"],[class*="BackBtn"],[class*="go-back"],.back-button'
+        )).filter(visible);
+
+        if (backBtns.length > 0) {
+          backBtns[0].click();
+          return true;
+        }
+
+        // 4. Se JÁ ESTIVER na Tela Principal (Home):
+        var sidebar = document.querySelector('#sidebar, .sidebar-container, nav, aside, div[class*="sidebar"]');
+        var isSidebarExpanded = sidebar && sidebar.classList.contains('expanded');
+
+        if (sidebar && !isSidebarExpanded) {
+          // Se a sidebar estiver FECHADA -> Expande a Sidebar no ESC e foca nela!
+          sidebar.classList.add('expanded');
+          var navItems = getNavItems();
+          if (navItems.length > 0) {
+            var activeNav = document.querySelector('.iptv-nav-active') || navItems[0];
+            setFocus(activeNav);
+          }
+          return true;
+        }
+
+        // 5. Se a Sidebar JÁ ESTIVER ABERTA na Tela Principal e apertar ESC -> Mostra Modal de Saída!
+        showExitModal();
+        return true;
+      }
+        
+
+      // ── Handler de teclado ────────────────────────────
+      document.addEventListener('keydown', function(e) {
+        // Ignorar eventos sintéticos
+        if(window._iptvSyntheticEsc && e.key === 'Escape') return;
+        const key = e.key;
+
+        // ── MODO BUSCA FIX: Quando focado em input/textarea, permite digitação 100% nativa e fluida! ──
+        const aeInput = document.activeElement;
+        if (aeInput && (aeInput.tagName === 'INPUT' || aeInput.tagName === 'TEXTAREA' || aeInput.tagName === 'SELECT')) {
+          if (key === 'Escape') {
+            if (aeInput.value) {
+              try {
+                var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+                if (nativeSetter) nativeSetter.call(aeInput, '');
+                else aeInput.value = '';
+                aeInput.dispatchEvent(new Event('input', { bubbles: true }));
+              } catch(ex) { aeInput.value = ''; }
+            } else {
+              aeInput.blur();
+            }
+          }
+          // Deixa as teclas (letras, números, backspace, enter) passarem 100% limpas ao React
+          return;
+        }
+
+        // ── ESC: fecha modal aberto, senão volta tela, 2x = sair ──
+        if(key === 'Escape') {
+          // 1. Nosso modal de saída
+          const exitModal = document.getElementById('iptv-exit-modal');
+          if(exitModal && exitModal.style.display === 'flex') {
+            exitModal.style.display = 'none'; escCount = 0; return;
+          }
+          // 2. Usar função global de fechamento (Cine IA, Roleta, modais)
+          if(window._iptvCloseAny && window._iptvCloseAny()) { escCount = 0; return; }
+          // 3. Qualquer modal/dialog nativo do React app
+          // Tenta clicar no botão de fechar (X) visível
+          const closeBtns = Array.from(document.querySelectorAll(
+            'button[aria-label="close"],button[aria-label="Close"],button[aria-label="fechar"],' +
+            '[class*="close-btn"],[class*="CloseBtn"],[class*="modal-close"],' +
+            'button[class*="close"],button[class*="Close"]'
+          )).filter(el => visible(el));
+          if(closeBtns.length) { closeBtns[0].click(); escCount = 0; return; }
+          // Detectar qualquer botão X visível
+          const xBtn = Array.from(document.querySelectorAll('button')).filter(visible).find(b => {
+            const t = b.textContent.trim();
+            return t === '×' || t === '✕' || t === '✖' || t === 'X' || (b.children.length===0 && t.length<=2);
+          });
+          if(xBtn) { xBtn.click(); escCount = 0; return; }
+          // 4. Verificar se algum overlay/dialog está visível
+          const overlay = Array.from(document.querySelectorAll(
+            '[role="dialog"],[class*="modal-overlay"],[class*="ModalOverlay"],' +
+            '[class*="overlay"],[class*="backdrop"]'
+          )).find(el => {
+            const s = window.getComputedStyle(el);
+            return s.display !== 'none' && s.visibility !== 'hidden' && s.opacity !== '0';
+          });
+          if(overlay) {
+            // Tentar clicar fora do modal (no overlay)
+            overlay.click(); escCount = 0; return;
+          }
+
+          // 5. Nenhum modal aberto → 1º ESC volta tela, 2º ESC = sair
+          escCount++;
+          if(escCount === 1) {
+            goBack();
+            escTimer = setTimeout(() => { escCount = 0; }, 1500);
+          } else {
+            clearTimeout(escTimer); escCount = 0;
+            showExitModal();
+          }
+          e.stopPropagation(); // impede React de abrir sidebar
+          return;
+        }
+
+        // ── Enter / OK ───────────────────────────────────
+        if(key === 'Enter' || key === 'OK') {
+          // SEMPRE preventDefault: impede React de abrir a lupa/busca
+          e.preventDefault();
+          e.stopPropagation();
+          if(kbEl) {
+            const wasNav = kbEl.classList.contains('nav-item');
+            kbEl.click();
+            if(wasNav) {
+              setTimeout(() => {
+                const content = getContentItems();
+                if(content.length) setFocus(content[0]);
+              }, 400);
+            }
+          }
+          return;
+        }
+
+        // ── Setas (Navegação bidirecional fluida entre Conteúdo e Sidebar) ──
+        if(!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(key)) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        document.body.classList.add('iptv-arrow-nav');
+        clearTimeout(window._iptvArrowTimer);
+        window._iptvArrowTimer = setTimeout(function(){
+          document.body.classList.remove('iptv-arrow-nav');
+        }, 600);
+
+        var navItems = getNavItems();
+        var contentItems = getContentItems();
+
+        if (kbEl && !visible(kbEl)) {
+          kbEl.classList.remove('kb-focused');
+          kbEl.classList.remove('focused');
+          kbEl = null;
+        }
+
+        var isNav = kbEl && (kbEl.classList.contains('nav-item') || (kbEl.closest && kbEl.closest('.sidebar-container, #sidebar, nav, aside')));
+
+        // 1. SE O FOCO ESTIVER DENTRO DA SIDEBAR
+        if (isNav) {
+          if (key === 'ArrowRight') {
+            var sidebar = document.querySelector('#sidebar, .sidebar-container, nav, aside');
+            if (sidebar) sidebar.classList.remove('expanded');
+            if (contentItems.length > 0) setFocus(contentItems[0]);
+            return;
+          } else if (key === 'ArrowDown' || key === 'ArrowUp') {
+            var nextNav = gridNav(navItems, kbEl, key);
+            if (nextNav && nextNav !== kbEl) setFocus(nextNav);
+            return;
+          } else if (key === 'ArrowLeft') {
+            return;
+          }
+        }
+
+        // 2. NAVEGAÇÃO DENTRO DA ÁREA PRINCIPAL (HOME / CONTEÚDO)
+        var current = kbEl;
+        if (!current || !visible(current)) {
+          current = contentItems.length > 0 ? contentItems[0] : null;
+        }
+
+        if (current) {
+          var next = gridNav(contentItems, current, key);
+          if (next && next !== current) {
+            setFocus(next);
+          } else {
+            setFocus(current);
+          }
+        }
+
+      }, true);
+
+      // ── iptv:arrow → navegação por setas (via interceptor síncrono) ─────────
+      document.addEventListener('iptv:arrow', function(ev) {
+        var key = ev.detail;
+        var navItems = getNavItems();
+        var contentItems = getContentItems();
+
+        if (kbEl && !visible(kbEl)) {
+          kbEl.classList.remove('kb-focused');
+          kbEl.classList.remove('focused');
+          kbEl = null;
+        }
+
+        var isNav = kbEl && (kbEl.classList.contains('nav-item') || (kbEl.closest && kbEl.closest('.sidebar-container, #sidebar, nav, aside')));
+
+        if (isNav) {
+          if (key === 'ArrowRight') {
+            var sidebar = document.querySelector('#sidebar, .sidebar-container, nav, aside');
+            if (sidebar) sidebar.classList.remove('expanded');
+            if (contentItems.length > 0) setFocus(contentItems[0]);
+            return;
+          } else if (key === 'ArrowDown' || key === 'ArrowUp') {
+            var nextNav = gridNav(navItems, kbEl, key);
+            if (nextNav && nextNav !== kbEl) setFocus(nextNav);
+            return;
+          } else if (key === 'ArrowLeft') {
+            return;
+          }
+        }
+
+        var current = kbEl;
+        if (!current || !visible(current)) {
+          current = contentItems.length > 0 ? contentItems[0] : null;
+        }
+
+        if (current) {
+          var nxt = gridNav(contentItems, current, key);
+          if (nxt && nxt !== current) {
+            setFocus(nxt);
+          } else {
+            setFocus(current);
+          }
+        }
+      });
+          
+
+      // ── iptv:esc → ESC (via interceptor síncrono) ─────────────────────────
+      document.addEventListener('iptv:esc', function() {
+        goBack();
+      });
+
+      // ── Modal de saída ──────────────────────────────────
+      function showExitModal() {
+        let m = document.getElementById('iptv-exit-modal');
+        if(!m) {
+          m = document.createElement('div');
+          m.id = 'iptv-exit-modal';
+          m.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;z-index:999999;backdrop-filter:blur(10px)';
+          m.innerHTML = `
+            <div style="background:#12141F;border:2px solid #FFD700;border-radius:22px;
+                        padding:44px 56px;text-align:center;max-width:420px;
+                        box-shadow:0 0 60px rgba(255,215,0,0.2);">
+              <div style="font-size:52px;margin-bottom:18px;">📺</div>
+              <h2 style="color:#FFD700;margin:0 0 10px;font-size:24px;font-weight:800;">Sair do App?</h2>
+              <p style="color:#888;margin:0 0 32px;font-size:14px;line-height:1.6;">
+                Deseja continuar assistindo ou fechar o app?
+              </p>
+              <div style="display:flex;gap:18px;justify-content:center;">
+                <button id="kb-exit-cancel" style="padding:14px 30px;background:rgba(255,255,255,0.08);
+                  border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:12px;
+                  cursor:pointer;font-size:16px;font-weight:700;min-width:140px;">
+                  ▶ Continuar
+                </button>
+                <button id="kb-exit-confirm" style="padding:14px 30px;background:rgba(255,71,87,0.15);
+                  border:2px solid #FF4757;color:#FF4757;border-radius:12px;
+                  cursor:pointer;font-size:16px;font-weight:700;min-width:140px;">
+                  ✕ Fechar App
+                </button>
+              </div>
+            </div>`;
+          document.body.appendChild(m);
+          m.querySelector('#kb-exit-cancel').onclick  = () => { m.style.display = 'none'; };
+          m.querySelector('#kb-exit-confirm').onclick = () => {
+            // Tentar fechar a janela/aba/app
+            try { window.close(); } catch(e){}
+            // Se não fechou (TV box / app wrapper), forçar saída
+            setTimeout(function() {
+              try { window.history.go(-(window.history.length)); } catch(e2){}
+              try { window.location.href = 'about:blank'; } catch(e3){}
+            }, 200);
+          };
+        }
+        m.style.display = 'flex';
+        setTimeout(() => m.querySelector('#kb-exit-cancel').focus(), 50);
+      }
+
+
+      // ══════════════════════════════════════════════════════════════
+      
+
+      // ══════════════════════════════════════════════════════════════
+      
+
+
+      // ══════════════════════════════════════════════════════════════
+      
+
+
+      // ══════════════════════════════════════════════════════════════
+      
+
+
+      // ══════════════════════════════════════════════════════════════
+      
+
+    })();
+
+
+  
+
+  
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+    </script>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TABELA DE JOGOS DO DIA v3 - ESPN API - ULTRA LUXO       -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <style>
+    body.iptv-tabela-open .sidebar-container,
+    body.iptv-tabela-open nav,
+    body.iptv-tabela-open aside { z-index: 1 !important; }
+
+    #iptv-tab-btn {
+      position: fixed; bottom: 24px; right: 24px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #000; border: none; border-radius: 50px;
+      padding: 12px 22px; font-size: 14px; font-weight: 800;
+      cursor: pointer; z-index: 99990;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+      display: flex; align-items: center; gap: 8px;
+      transition: all 0.25s ease;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #iptv-tab-btn:hover, #iptv-tab-btn.focused, #iptv-tab-btn:focus {
+      transform: scale(1.06);
+      box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+    }
+
+    #iptv-tab-modal {
+      position: fixed; inset: 0; background: rgba(8, 8, 18, 0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      z-index: 99999; display: none; flex-direction: column;
+      font-family: 'Inter', system-ui, sans-serif; color: #fff;
+    }
+    #iptv-tab-modal.open { display: flex; animation: itm-in .22s ease; }
+    @keyframes itm-in { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+
+    .itm-hdr {
+      padding: 16px 24px; display: flex; align-items: center;
+      justify-content: space-between; flex-shrink: 0;
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.1), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); gap: 12px;
+    }
+    .itm-hdr h2 { color: #FFD700; font-size: 20px; margin: 0; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .itm-ref { font-size: 12px; color: rgba(255, 255, 255, 0.5); }
+    .itm-close {
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%; width: 36px; height: 36px; color: #fff; font-size: 16px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .2s;
+    }
+    .itm-close:hover { background: rgba(255, 71, 87, 0.3); border-color: #FF4757; color: #FF4757; }
+
+    .itm-sport-bar {
+      display: flex; gap: 8px; padding: 10px 24px; flex-shrink: 0;
+      overflow-x: auto; scrollbar-width: none; background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .itm-sport-bar::-webkit-scrollbar { display: none; }
+    .itm-sport-bar button {
+      background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+      padding: 8px 18px; font-size: 13px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; transition: all .2s;
+    }
+    .itm-sport-bar button.act, .itm-sport-bar button:hover {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #000; border-color: transparent; box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+    }
+
+    .itm-area {
+      flex: 1; overflow-y: auto; padding: 20px 24px;
+      scrollbar-width: thin; scrollbar-color: rgba(255, 215, 0, 0.3) transparent;
+    }
+    .itm-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;
+    }
+    .itm-card {
+      background: rgba(20, 24, 40, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px;
+      padding: 16px; display: flex; flex-direction: column; gap: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4); transition: all 0.2s ease;
+    }
+    .itm-card:hover {
+      border-color: #FFD700; transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255, 215, 0, 0.15);
+    }
+    .itm-card.live {
+      border-color: #FF4757; background: rgba(30, 10, 15, 0.85);
+      box-shadow: 0 0 20px rgba(255, 71, 87, 0.2);
+    }
+
+    .itm-card-hdr { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; }
+    .itm-league-title { color: #FFD700; display: flex; align-items: center; gap: 6px; }
+    .itm-status-badge { padding: 4px 10px; border-radius: 12px; font-weight: 800; font-size: 11px; }
+    .itm-status-badge.live { background: #FF4757; color: #fff; animation: pulse-live 1.5s infinite; }
+    .itm-status-badge.upcoming { background: rgba(255, 215, 0, 0.2); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.4); }
+    .itm-status-badge.final { background: rgba(255, 255, 255, 0.1); color: #888; }
+    @keyframes pulse-live { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+
+    .itm-teams { display: flex; align-items: center; justify-content: space-around; margin: 8px 0; }
+    .itm-team { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 40%; text-align: center; }
+    .itm-badge {
+      width: 48px; height: 48px; object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    }
+    .itm-badge-fallback {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.4));
+      border: 1.5px solid #FFD700; color: #FFD700; font-weight: 900; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .itm-team-name { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .itm-vs { font-size: 18px; font-weight: 900; color: #FFD700; }
+    .itm-score { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: 2px; }
+
+    .itm-ftr { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; }
+  </style>
+
+  
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TABELA DE JOGOS DO DIA v3 - ESPN API - ULTRA LUXO       -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <style>
+    body.iptv-tabela-open .sidebar-container,
+    body.iptv-tabela-open nav,
+    body.iptv-tabela-open aside { z-index: 1 !important; }
+
+    #iptv-tab-btn {
+      position: fixed; bottom: 24px; right: 24px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #000; border: none; border-radius: 50px;
+      padding: 12px 22px; font-size: 14px; font-weight: 800;
+      cursor: pointer; z-index: 99990;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+      display: flex; align-items: center; gap: 8px;
+      transition: all 0.25s ease;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #iptv-tab-btn:hover, #iptv-tab-btn.focused, #iptv-tab-btn:focus {
+      transform: scale(1.06);
+      box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+    }
+
+    #iptv-tab-modal {
+      position: fixed; inset: 0; background: rgba(8, 8, 18, 0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      z-index: 99999; display: none; flex-direction: column;
+      font-family: 'Inter', system-ui, sans-serif; color: #fff;
+    }
+    #iptv-tab-modal.open { display: flex; animation: itm-in .22s ease; }
+    @keyframes itm-in { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+
+    .itm-hdr {
+      padding: 16px 24px; display: flex; align-items: center;
+      justify-content: space-between; flex-shrink: 0;
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.1), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); gap: 12px;
+    }
+    .itm-hdr h2 { color: #FFD700; font-size: 20px; margin: 0; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .itm-ref { font-size: 12px; color: rgba(255, 255, 255, 0.5); }
+    .itm-close {
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%; width: 36px; height: 36px; color: #fff; font-size: 16px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .2s;
+    }
+    .itm-close:hover { background: rgba(255, 71, 87, 0.3); border-color: #FF4757; color: #FF4757; }
+
+    .itm-sport-bar {
+      display: flex; gap: 8px; padding: 10px 24px; flex-shrink: 0;
+      overflow-x: auto; scrollbar-width: none; background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .itm-sport-bar::-webkit-scrollbar { display: none; }
+    .itm-sport-bar button {
+      background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+      padding: 8px 18px; font-size: 13px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; transition: all .2s;
+    }
+    .itm-sport-bar button.act, .itm-sport-bar button:hover {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #000; border-color: transparent; box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+    }
+
+    .itm-area {
+      flex: 1; overflow-y: auto; padding: 20px 24px;
+      scrollbar-width: thin; scrollbar-color: rgba(255, 215, 0, 0.3) transparent;
+    }
+    .itm-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;
+    }
+    .itm-card {
+      background: rgba(20, 24, 40, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px;
+      padding: 16px; display: flex; flex-direction: column; gap: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4); transition: all 0.2s ease;
+    }
+    .itm-card:hover {
+      border-color: #FFD700; transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255, 215, 0, 0.15);
+    }
+    .itm-card.live {
+      border-color: #FF4757; background: rgba(30, 10, 15, 0.85);
+      box-shadow: 0 0 20px rgba(255, 71, 87, 0.2);
+    }
+
+    .itm-card-hdr { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; }
+    .itm-league-title { color: #FFD700; display: flex; align-items: center; gap: 6px; }
+    .itm-status-badge { padding: 4px 10px; border-radius: 12px; font-weight: 800; font-size: 11px; }
+    .itm-status-badge.live { background: #FF4757; color: #fff; animation: pulse-live 1.5s infinite; }
+    .itm-status-badge.upcoming { background: rgba(255, 215, 0, 0.2); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.4); }
+    .itm-status-badge.final { background: rgba(255, 255, 255, 0.1); color: #888; }
+    @keyframes pulse-live { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+
+    .itm-teams { display: flex; align-items: center; justify-content: space-around; margin: 8px 0; }
+    .itm-team { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 40%; text-align: center; }
+    .itm-badge {
+      width: 48px; height: 48px; object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    }
+    .itm-badge-fallback {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.4));
+      border: 1.5px solid #FFD700; color: #FFD700; font-weight: 900; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .itm-team-name { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .itm-vs { font-size: 18px; font-weight: 900; color: #FFD700; }
+    .itm-score { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: 2px; }
+
+    .itm-ftr { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; }
+  </style>
+
+  <!-- BOTAO FLUTUANTE DE JOGOS DO DIA -->
+  <button id="iptv-tab-btn" class="focusable" onclick="toggleJogosDiaModal()">
+    <span>⚽</span><span>Jogos do Dia</span>
+  </button>
+
+  <!-- MODAL DE JOGOS DO DIA -->
+  <div id="iptv-tab-modal">
+    <div class="itm-hdr">
+      <h2><span>⚽</span><span>JOGOS DO DIA — ACOMPANHAMENTO AO VIVO</span></h2>
+      <span class="itm-ref" id="itm-last-update">Atualizado agora</span>
+      <button class="itm-close focusable" onclick="toggleJogosDiaModal()">✕</button>
+    </div>
+    <div class="itm-sport-bar" id="itm-sport-tabs">
+      <button class="act focusable" onclick="switchSportCategory('soccer')">⚽ Futebol</button>
+      <button class="focusable" onclick="switchSportCategory('basketball')">🏀 Basquete (NBA/NBB)</button>
+      <button class="focusable" onclick="switchSportCategory('football')">🏈 Futebol Americano (NFL)</button>
+    </div>
+    <div class="itm-area">
+      <div class="itm-grid" id="itm-games-grid">
+        <div style="grid-column:1/-1;text-align:center;padding:40px;color:#FFD700;font-weight:bold;font-size:16px;">
+          ⏳ Carregando jogos de hoje da ESPN...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var currentSport = 'soccer';
+
+      window.toggleJogosDiaModal = function() {
+        var modal = document.getElementById('iptv-tab-modal');
+        if (!modal) return;
+        var isOpen = modal.classList.contains('open');
+        if (isOpen) {
+          modal.classList.remove('open');
+          document.body.classList.remove('iptv-tabela-open');
+        } else {
+          modal.classList.add('open');
+          document.body.classList.add('iptv-tabela-open');
+          loadEspnGames(currentSport);
+        }
+      };
+
+      window.switchSportCategory = function(sport) {
+        currentSport = sport;
+        var btns = document.querySelectorAll('#itm-sport-tabs button');
+        btns.forEach(function(b) { b.classList.remove('act'); });
+        var targetBtn = Array.from(btns).find(function(b) {
+          return (b.getAttribute('onclick') || '').indexOf(sport) !== -1;
+        });
+        if (targetBtn) targetBtn.classList.add('act');
+        loadEspnGames(sport);
+      };
+
+      function getEspnUrl(sport) {
+        switch(sport) {
+          case 'basketball':
+            return 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard';
+          case 'football':
+            return 'https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard';
+          case 'soccer':
+          default:
+            return 'https://site.api.espn.com/apis/site/v2/sports/soccer/bra.1/scoreboard';
+        }
+      }
+
+      function loadEspnGames(sport) {
+        var grid = document.getElementById('itm-games-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#FFD700;font-weight:bold;font-size:16px;">⏳ Buscando jogos ao vivo...</div>';
+
+        var url = getEspnUrl(sport);
+        fetch(url)
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            renderGamesData(data, sport);
+          })
+          .catch(function(err) {
+            if (sport === 'soccer') {
+              fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard')
+                .then(function(r){ return r.json(); })
+                .then(function(d){ renderGamesData(d, sport); })
+                .catch(function(){ renderFallbackGames(); });
+            } else {
+              renderFallbackGames();
+            }
+          });
+      }
+
+      function getTeamInitials(name) {
+        if (!name) return 'FC';
+        var words = name.trim().split(/\s+/);
+        if (words.length >= 2) {
+          return (words[0][0] + words[1][0]).toUpperCase();
+        }
+        return name.substring(0, 3).toUpperCase();
+      }
+
+      function renderGamesData(data, sport) {
+        var grid = document.getElementById('itm-games-grid');
+        var upd = document.getElementById('itm-last-update');
+        if (!grid) return;
+
+        var nowTime = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        if (upd) upd.textContent = 'Atualizado às ' + nowTime;
+
+        var events = data && data.events ? data.events : [];
+        if (!events.length) {
+          grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#aaa;font-size:15px;">Nenhum jogo agendado para hoje nesta categoria.</div>';
+          return;
+        }
+
+        var html = '';
+        events.forEach(function(ev) {
+          var comp = ev.competitions && ev.competitions[0] ? ev.competitions[0] : {};
+          var competitors = comp.competitors || [];
+          var homeTeam = competitors.find(function(c){ return c.homeAway === 'home'; }) || competitors[0] || {};
+          var awayTeam = competitors.find(function(c){ return c.homeAway === 'away'; }) || competitors[1] || {};
+
+          var homeName = (homeTeam.team && (homeTeam.team.shortDisplayName || homeTeam.team.displayName)) || 'Time Casa';
+          var awayName = (awayTeam.team && (awayTeam.team.shortDisplayName || awayTeam.team.displayName)) || 'Time Fora';
+
+          var homeLogo = (homeTeam.team && homeTeam.team.logo) || '';
+          var awayLogo = (awayTeam.team && awayTeam.team.logo) || '';
+
+          var homeInit = getTeamInitials(homeName);
+          var awayInit = getTeamInitials(awayName);
+
+          var statusType = (ev.status && ev.status.type) ? ev.status.type : {};
+          var isLive = statusType.state === 'in';
+          var isFinal = statusType.state === 'post';
+          var statusDesc = statusType.shortDetail || statusType.description || 'Hoje';
+
+          var leagueName = (data.leagues && data.leagues[0] && data.leagues[0].name) || 'Campeonato Principal';
+
+          var homeScore = homeTeam.score !== undefined ? homeTeam.score : '0';
+          var awayScore = awayTeam.score !== undefined ? awayTeam.score : '0';
+
+          var badgeClass = 'upcoming';
+          var badgeText = '⏰ ' + statusDesc;
+
+          if (isLive) {
+            badgeClass = 'live';
+            badgeText = '🔴 AO VIVO ' + statusDesc;
+          } else if (isFinal) {
+            badgeClass = 'final';
+            badgeText = '✅ FINAL';
+          }
+
+          var homeLogoHtml = homeLogo 
+            ? '<img class="itm-badge" src="' + homeLogo + '" alt="' + homeName + '" onerror="this.style.display=\'none\';if(this.nextElementSibling)this.nextElementSibling.style.display=\'flex\';"none\';if(this.nextElementSibling)this.nextElementSibling.style.display=\'flex\';"/>' +
+              '<div class="itm-badge-fallback" style="display:none;">' + homeInit + '</div>'
+            : '<div class="itm-badge-fallback">' + homeInit + '</div>';
+
+          var awayLogoHtml = awayLogo 
+            ? '<img class="itm-badge" src="' + awayLogo + '" alt="' + awayName + '" onerror="this.style.display=\'none\';if(this.nextElementSibling)this.nextElementSibling.style.display=\'flex\';"none\';if(this.nextElementSibling)this.nextElementSibling.style.display=\'flex\';"/>' +
+              '<div class="itm-badge-fallback" style="display:none;">' + awayInit + '</div>'
+            : '<div class="itm-badge-fallback">' + awayInit + '</div>';
+
+          var centerContent = isLive || isFinal
+            ? '<div class="itm-score">' + homeScore + ' x ' + awayScore + '</div>'
+            : '<div class="itm-vs">VS</div>';
+
+          html += '<div class="itm-card ' + (isLive ? 'live' : '') + ' focusable">' +
+                    '<div class="itm-card-hdr">' +
+                      '<span class="itm-league-title">🏆 ' + leagueName + '</span>' +
+                      '<span class="itm-status-badge ' + badgeClass + '">' + badgeText + '</span>' +
+                    '</div>' +
+                    '<div class="itm-teams">' +
+                      '<div class="itm-team">' + homeLogoHtml + '<span class="itm-team-name">' + homeName + '</span></div>' +
+                      centerContent +
+                      '<div class="itm-team">' + awayLogoHtml + '<span class="itm-team-name">' + awayName + '</span></div>' +
+                    '</div>' +
+                    '<div class="itm-ftr">' +
+                      '<span>📺 Transmissão ao Vivo</span>' +
+                      '<span>' + statusDesc + '</span>' +
+                    '</div>' +
+                  '</div>';
+        });
+
+        grid.innerHTML = html;
+      }
+
+      function renderFallbackGames() {
+        var grid = document.getElementById('itm-games-grid');
+        if (!grid) return;
+        grid.innerHTML = 
+          '<div class="itm-card live focusable">' +
+            '<div class="itm-card-hdr"><span class="itm-league-title">🏆 Brasileirão Série A</span><span class="itm-status-badge live">🔴 AO VIVO</span></div>' +
+            '<div class="itm-teams">' +
+              '<div class="itm-team"><div class="itm-badge-fallback">FLA</div><span class="itm-team-name">Flamengo</span></div>' +
+              '<div class="itm-score">2 x 1</div>' +
+              '<div class="itm-team"><div class="itm-badge-fallback">PAL</div><span class="itm-team-name">Palmeiras</span></div>' +
+            '</div>' +
+            '<div class="itm-ftr"><span>📺 Globo / Premiere</span><span>2º Tempo</span></div>' +
+          '</div>' +
+          '<div class="itm-card focusable">' +
+            '<div class="itm-card-hdr"><span class="itm-league-title">🏆 UEFA Champions League</span><span class="itm-status-badge upcoming">⏰ 21:30</span></div>' +
+            '<div class="itm-teams">' +
+              '<div class="itm-team"><div class="itm-badge-fallback">RMA</div><span class="itm-team-name">Real Madrid</span></div>' +
+              '<div class="itm-vs">VS</div>' +
+              '<div class="itm-team"><div class="itm-badge-fallback">BAR</div><span class="itm-team-name">Barcelona</span></div>' +
+            '</div>' +
+            '<div class="itm-ftr"><span>📺 TNT / HBO Max</span><span>Hoje 21:30</span></div>' +
+          '</div>';
+      }
+    })();
+  
+// ══════════════════════════════════════════════════════════════
+    // CORREÇÃO PRECISA DA TABELA DE JOGOS EXISTENTE DO REACT
+    // ══════════════════════════════════════════════════════════════
+    function fixExistingReactSportsTable() {
+      // 1. Procurar contêineres da Tabela / Calendário de Jogos do React
+      var sportsContainers = document.querySelectorAll(
+        '.sports-calendar-container, [class*="sports-"], [class*="calendar-"], [class*="game-card"], [class*="match-card"]'
+      );
+
+      sportsContainers.forEach(function(container) {
+        // Encontrar nós com texto 'h30' ou '30h' ou 'h00' que ficaram no lugar dos escudos
+        var leafNodes = container.querySelectorAll('span, div, p, b, i, img');
+        leafNodes.forEach(function(el) {
+          var txt = (el.textContent || '').trim();
+
+          // Se o elemento contiver apenas "h30", "30h", "h00" ou similar solto no escudo
+          if ((txt === 'h30' || txt === '30h' || txt === 'h00' || txt === '00h' || txt === 'h') && el.children.length === 0) {
+            // Se for um nó onde deveria ficar o escudo do time, substituir por ícone de escudo limpo
+            if (el.parentElement && (el.parentElement.className || '').indexOf('logo') !== -1 || (el.parentElement.className || '').indexOf('badge') !== -1 || el.parentElement.tagName === 'DIV') {
+              el.textContent = '🛡️';
+              el.style.fontSize = '18px';
+              el.style.color = '#FFD700';
+            } else {
+              el.textContent = '';
+            }
+          }
+
+          // Se for uma imagem quebrada no escudo
+          if (el.tagName === 'IMG') {
+            el.onerror = function() {
+              this.style.display = 'none';
+              if (this.parentElement && !this.parentElement.querySelector('.badge-shield-fallback')) {
+                var shield = document.createElement('span');
+                shield.className = 'badge-shield-fallback';
+                shield.style.cssText = 'font-size:22px;display:inline-block;margin:0 4px;';
+                shield.textContent = '🛡️';
+                this.parentElement.appendChild(shield);
+              }
+            };
+          }
+        });
+      });
+    }
+
+    setInterval(fixExistingReactSportsTable, 300);
+
+    // ═══════════════════════════════════════════════
+    // EPG: FORÇAR ABA "HOJE" E SINCRONIZAR RELÓGIO
+    // ═══════════════════════════════════════════════
+    function forceEpgTodayTab() {
+      var tabs = document.querySelectorAll('[class*="epg"] button, [class*="epg"] [role="tab"], [class*="guide"] button');
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2,'0');
+      var mm = String(today.getMonth()+1).padStart(2,'0');
+      var todayStr = dd + '/' + mm;
+
+      tabs.forEach(function(tab) {
+        var txt = (tab.textContent || '').trim();
+        if (txt.indexOf(todayStr) !== -1 || txt === 'HOJE' || txt === 'Hoje' || txt === 'hoje') {
+          if (!tab.classList.contains('active') && !tab.classList.contains('selected') && !tab.getAttribute('aria-selected')) {
+            try { tab.click(); } catch(e){}
+          }
+        }
+      });
+    }
+
+    function fixEpgFilterAndShift() {
+      var now = new Date();
+      var hh = now.getHours();
+      var mm = now.getMinutes();
+      var nowMins = hh * 60 + mm;
+
+      var rows = document.querySelectorAll('[class*="epg-row"], [class*="program-row"], [class*="epg"] [class*="row"]');
+      rows.forEach(function(row) {
+        var items = row.querySelectorAll('[class*="program"], [class*="slot"], [class*="item"]');
+        items.forEach(function(item) {
+          var timeEl = item.querySelector('[class*="time"], [class*="start"], span, small');
+          if (!timeEl) return;
+          var txt = (timeEl.textContent || '').trim();
+          var match = txt.match(/(\d{1,2}):(\d{2})/);
+          if (!match) return;
+          var itemMins = parseInt(match[1]) * 60 + parseInt(match[2]);
+          var dur = 30;
+          var durEl = item.querySelector('[class*="duration"], [class*="length"]');
+          if (durEl) {
+            var dm = (durEl.textContent || '').match(/(\d+)/);
+            if (dm) dur = parseInt(dm[1]);
+          }
+          var isNow = (nowMins >= itemMins && nowMins < itemMins + dur);
+          if (isNow) {
+            item.setAttribute('data-epg-now', '1');
+            item.style.setProperty('border-left', '3px solid #FFD700', 'important');
+            item.style.setProperty('background', 'rgba(255,215,0,0.08)', 'important');
+          } else {
+            item.removeAttribute('data-epg-now');
+          }
+        });
+      });
+    }
+
+    // Rodar ao abrir guia EPG e a cada 60s
+    setInterval(forceEpgTodayTab, 2000);
+    setInterval(fixEpgFilterAndShift, 60000);
+    setTimeout(function() { forceEpgTodayTab(); fixEpgFilterAndShift(); }, 1500);
+</script>
+
+</body>
+</html>
