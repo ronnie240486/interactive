@@ -1,7 +1,4 @@
-node_modules/
-exe_extracted/
 .vite/
+exe_extracted/
 *.log
 .env
-*.backup_*
-*.pure_orig
